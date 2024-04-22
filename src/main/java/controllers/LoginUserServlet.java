@@ -33,15 +33,7 @@ public class LoginUserServlet extends HttpServlet {
         String password = request.getParameter(StringUtils.PASSWORD);
         String email = request.getParameter(StringUtils.EMAIL);
 
-     // Implement data validation here
-        if   !ValidationUtil.isAlphanumeric(userName) || 
-                !ValidationUtil.isEmail(email) ||
-				!ValidationUtil.isNumbersOnly(password) 
-				 ) {
-            request.setAttribute(StringUtils.MESSAGE_ERROR, StringUtils.MESSAGE_ERROR_INCORRECT_DATA);
-            request.getRequestDispatcher(StringUtils.PAGE_URL_REGISTER).forward(request, response);
-            return; // Stop further execution
-        }
+     
         UserLoginModel userLoginModel = new UserLoginModel(userName,email, password);
 
         int loginResult = userServices.getUserLoginInfo(userLoginModel);
