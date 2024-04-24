@@ -1,83 +1,68 @@
-/* Global Styles */
-@charset "UTF-8";
-body {
-    font-family: "Open Sans", sans-serif;
-    line-height: 1.25;
-    background-color: #8792C0;
-}
 
-a {
-    text-decoration: none;
-}
-
-
-/* Table Styles */
-table {
-    border: 1px solid #ccc;
-    border-collapse: collapse;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    table-layout: fixed;
-}
-
-/* Form Styles */
-.input-style {
-    width: 90%;
-    padding: 12px 20px;
-    margin-left: 5%;
-    box-sizing: border-box;
-    border: none;
-    background-color: white;
-    color: black;
-    font-size: 16px;
-}
-
-/* Button Styles */
-.button {
-    background-color: aqua;
-    border: none;
-    color: black;
-    padding: 12px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
-    margin: 4px 2px;
-    transition-duration: 0.4s;
-    cursor: pointer;
-    margin-left: 5%;
-    font-size: 16px;
-    width: 90%;
-    border-radius: 25px;
-}
-
-.button:hover {
-    background-color: #555555;
-    color: white;
-}
-
-/* Header Styles */
-h3 {
-    text-align: center;
-    color: white;
-}
-
-.alert {
-    color: yellow;
-}
-
-
-/* Divider Styles */
-hr {
-    width: 90%;
-}
-
-/* Media Queries */
-@media screen and (max-width: 600px) {
-    /* Styles for small screens */
-    table {
-        border: 0;
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
     }
-    /* Other responsive styles... */
-}
+
+    .container {
+        width: 400px;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+        width: calc(100% - 16px);
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type="file"] {
+        width: calc(100% - 16px);
+        padding: 8px;
+        box-sizing: border-box;
+    }
+
+    button[type="submit"] {
+        width: 100%;
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+    .alert {
+        background-color: #f44336;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        margin-bottom: 20px;
+        border-radius: 4px;
+    }

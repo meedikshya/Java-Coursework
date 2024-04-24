@@ -17,7 +17,7 @@ import models.ProductModel;
 
 public class ProductServices {
 
-    private final Dbconnection dbObj = new Dbconnection();
+    private final static Dbconnection dbObj = new Dbconnection();
 
     public int addProduct(ProductModel product) throws ClassNotFoundException {
         try (Connection conn = dbObj.getDbConnection();
@@ -46,11 +46,11 @@ public class ProductServices {
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
-                String name = rs.getString("product_name");
-                String category = rs.getString("Product_Category");
-                double price = rs.getDouble("unit_price");
-                int quantity = rs.getInt("stock_quantity");
-                String imageUrl = rs.getString("product_image");
+                String name = rs.getString("name");
+                String category = rs.getString("category");
+                double price = rs.getDouble("price");
+                int quantity = rs.getInt("quantity");
+                String imageUrl = rs.getString("image");
                 
                 ProductModel product = new ProductModel(name, category, price, quantity, imageUrl);
                 productList.add(product);
@@ -61,6 +61,17 @@ public class ProductServices {
             ex.printStackTrace();
         }
         return productList;
+    }
+    
+    public static int deleteProduct(String productId) throws ClassNotFoundException {
+        try (Connection con = dbObj.getDbConnection()) {
+            PreparedStatement st = con.prepareStatement(ProductDataSource.QUERY_DELETE_PRODUCTS);
+            st.setString(1, productId);
+            return st.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace(); // Log the exception for debugging
+            return -1;
+        }
     }
 
 }

@@ -5,10 +5,10 @@ import javax.servlet.http.Part;
 import utils.StringUtils;
 
 import java.io.File;
-import java.io.Serializable;
 
 
-public class ProductModel implements Serializable {
+
+public class ProductModel {
  
     private String name;
     private String category;
