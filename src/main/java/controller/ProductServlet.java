@@ -40,7 +40,6 @@ public class ProductServlet extends HttpServlet {
                 for (ProductModel product : allProducts) {
                     System.out.println(product);
                 }
-
                 request.setAttribute("productList", allProducts);
                 request.getRequestDispatcher(StringUtils.PRODUCT_LIST_PAGE).forward(request, response);
             } else {

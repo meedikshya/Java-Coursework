@@ -5,9 +5,10 @@ import javax.servlet.http.Part;
 import utils.StringUtils;
 
 import java.io.File;
+import java.io.Serializable;
 
 
-public class ProductModel {
+public class ProductModel implements Serializable {
  
     private String name;
     private String category;
@@ -76,7 +77,6 @@ public class ProductModel {
 		this.imageUrlFromPart = imageUrl;
 	}
 	
-	//shows console la output precisely
 	 @Override
 	    public String toString() {
 	        return "ProductModel{" +
@@ -89,11 +89,6 @@ public class ProductModel {
 	    }
 	
 	private String getImageUrl(Part part) {
-		 if (part == null) {
-	            // Handle the case where the Part object is null
-	            return "default.jpg"; // Or any default image URL
-	        }
-		 
 		String savePath = StringUtils.IMAGE_DIR_USER;
 		File fileSaveDir = new File(savePath);
 		String imageUrlFromPart = null;
@@ -110,7 +105,7 @@ public class ProductModel {
 		}
 		
 		if (imageUrlFromPart == null || imageUrlFromPart.isEmpty()) {
-			imageUrlFromPart = "";
+			imageUrlFromPart = "download.jpg";
 		}
 		return imageUrlFromPart;
 	}

@@ -47,10 +47,10 @@ public class ProductServices {
 
             while (rs.next()) {
                 String name = rs.getString("product_name");
-                String category = rs.getString("category");
-                double price = rs.getDouble("price");
-                int quantity = rs.getInt("quantity");
-                String imageUrl = rs.getString("image");
+                String category = rs.getString("Product_Category");
+                double price = rs.getDouble("unit_price");
+                int quantity = rs.getInt("stock_quantity");
+                String imageUrl = rs.getString("product_image");
                 
                 ProductModel product = new ProductModel(name, category, price, quantity, imageUrl);
                 productList.add(product);

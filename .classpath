@@ -18,15 +18,7 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/User/Downloads/taglibs1.2.5_a22df91a-17a3-4eca-8794-08dc51faa89a_93445_/taglibs-standard-impl-1.2.5.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/User/Downloads/taglibs1.2.5_a22df91a-17a3-4eca-8794-08dc51faa89a_93445_/taglibs-standard-spec-1.2.5.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/taglibs1.2.5_a22df91a-17a3-4eca-8794-08dc51faa89a_93445_/taglibs-standard-impl-1.2.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/taglibs1.2.5_a22df91a-17a3-4eca-8794-08dc51faa89a_93445_/taglibs-standard-spec-1.2.5.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
