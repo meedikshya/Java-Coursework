@@ -1,0 +1,83 @@
+/* Global Styles */
+@charset "UTF-8";
+body {
+    font-family: "Open Sans", sans-serif;
+    line-height: 1.25;
+    background-color: #8792C0;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+/* Table Styles */
+table {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    table-layout: fixed;
+}
+
+/* Form Styles */
+.input-style {
+    width: 90%;
+    padding: 12px 20px;
+    margin-left: 5%;
+    box-sizing: border-box;
+    border: none;
+    background-color: white;
+    color: black;
+    font-size: 16px;
+}
+
+/* Button Styles */
+.button {
+    background-color: aqua;
+    border: none;
+    color: black;
+    padding: 12px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    margin-left: 5%;
+    font-size: 16px;
+    width: 90%;
+    border-radius: 25px;
+}
+
+.button:hover {
+    background-color: #555555;
+    color: white;
+}
+
+/* Header Styles */
+h3 {
+    text-align: center;
+    color: white;
+}
+
+.alert {
+    color: yellow;
+}
+
+
+/* Divider Styles */
+hr {
+    width: 90%;
+}
+
+/* Media Queries */
+@media screen and (max-width: 600px) {
+    /* Styles for small screens */
+    table {
+        border: 0;
+    }
+    /* Other responsive styles... */
+}
