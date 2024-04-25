@@ -1,6 +1,7 @@
 package services;
 
 import java.sql.Connection;
+
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -21,7 +22,7 @@ public class UserServices {
 	/**
 	 * Establishes a connection to the database using pre-defined credentials and driver information.
 	 * 
-	 * @return A `Connection` object representing the established connection to the database.
+	 * @return A Connection object representing the established connection to the database.
 	 * @throws SQLException if a database access error occurs.
 	 * @throws ClassNotFoundException if the JDBC driver class is not found.
 	 */
@@ -49,7 +50,7 @@ public class UserServices {
 	        stmt.setString(6, user.getphoneNumber());
 	        stmt.setString(7, user.getAddress());
 	        stmt.setString(8, PasswordEncryptionWithAes.encrypt(user.getUserName(), user.getPassword())); // Encrypt the password
-	        //stmt.setString(9, user.getUserRole());
+	        stmt.setString(9, user.getUserRole() !=null ? user.getUserRole() : StringUtils.DEFAULT_USER_ROLE);
 	        
 	        // Execute the update statement and store the number of affected rows
 	        int result = stmt.executeUpdate();
@@ -85,6 +86,7 @@ public class UserServices {
         try (Connection con = dbObj.getDbConnection()) {
             PreparedStatement stmt = con.prepareStatement(UserRegistrationDataSource.GET_LOGIN_USER_INFO);
             stmt.setString(1, userLoginModel.getUserName());
+            //stmt.setString(2, userLoginModel.getPassword());
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
@@ -106,6 +108,37 @@ public class UserServices {
         }
     }
 
+    // UserRole 
+    public int getUserRole(UserLoginModel userLoginModel) {
+        // Try-catch block to handle potential SQL or ClassNotFound exceptions
+        try (Connection con = dbObj.getDbConnection()) {
+            PreparedStatement stmt = con.prepareStatement(UserRegistrationDataSource.GET_USER_ROLE);
+        
+            // Set the username in the first parameter of the prepared statement
+            stmt.setString(1, userLoginModel.getUserName());
+            ResultSet rs = stmt.executeQuery();
+ 
+            // Check if there's a record returned from the query
+            if (rs.next()) {
+                // Get the user role from the database
+                String userRole = rs.getString(StringUtils.USERROLE);
+
+                // Return 1 if the user role matches the admin role, otherwise return 0
+                return userRole.equals("Admin") ? 1 : 0;
+            } else {
+                // Username not found in the database, return -1
+                return -1;
+            }
+
+            // Catch SQLException and ClassNotFoundException if they occur
+        } catch (SQLException ex) {
+            // Print the stack trace for debugging purposes
+            ex.printStackTrace();
+            // Return -2 to indicate an internal error
+            return -2;
+        }
+    }
+    
     public Boolean checkEmailIfExists(String email) {
         try (Connection con = dbObj.getDbConnection()) {
             PreparedStatement st = con.prepareStatement(UserRegistrationDataSource.GET_EMAIL);
@@ -163,7 +196,7 @@ public class UserServices {
                 user.setGender(result.getString("Gender"));
 				user.setPhoneNumber(result.getString("Phone_Number"));
 				user.setAddress(result.getString("Address"));
-				//user.setUserRole(result.getString("UserRole"));
+				user.setUserRole(result.getString("UserRole"));
                 
                 // Set other attributes accordingly if needed
                 users.add(user);
@@ -175,4 +208,5 @@ public class UserServices {
         }
     }
 
+    
 }

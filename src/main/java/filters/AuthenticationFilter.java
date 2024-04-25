@@ -39,21 +39,21 @@ public class AuthenticationFilter implements Filter {
 	    }
 
 	    // Separate flags for login, login/logout servlets, and register page/servlet for better readability
-	    boolean isLogin = uri.endsWith(StringUtils.PAGE_URL_LOGIN);
-	    boolean isLoginServlet = uri.endsWith(StringUtils.SERVLET_URL_LOGIN);
-	    boolean isLogoutServlet = uri.endsWith(StringUtils.SERVLET_URL_LOGOUT);
+	    boolean islogin = uri.endsWith(StringUtils.PAGE_URL_LOGIN);
+	    boolean isLoginUserServlet = uri.endsWith(StringUtils.SERVLET_URL_LOGIN);
+	    boolean isLogoutUserServlet = uri.endsWith(StringUtils.SERVLET_URL_LOGOUT);
 
-	    boolean isRegisterPage = uri.endsWith(StringUtils.PAGE_URL_REGISTER);
-	    boolean isRegisterServlet = uri.endsWith(StringUtils.SERVLET_URL_REGISTER);
+	    boolean isregister  = uri.endsWith(StringUtils.PAGE_URL_REGISTER);
+	    boolean isRegisterUserServlet = uri.endsWith(StringUtils.SERVLET_URL_REGISTER);
 
 	    // Check if a session exists and if the username attribute is set to determine login status
 	    HttpSession session = req.getSession(false); // Don't create a new session if one doesn't exist
 	    boolean isLoggedIn = session != null && session.getAttribute(StringUtils.USERNAME) != null;
 
 	    // Redirect to login if user is not logged in and trying to access a protected resource
-	    if (!isLoggedIn && !(isLogin || isLoginServlet || isRegisterPage || isRegisterServlet)) {
+	    if (!isLoggedIn && !(islogin || isLoginUserServlet || isregister || isRegisterUserServlet)) {
 	        res.sendRedirect(req.getContextPath() + StringUtils.PAGE_URL_LOGIN);
-	    } else if (isLoggedIn && !(!isLogin || isLogoutServlet)) { // Redirect logged-in users to the index page if trying to access login page again
+	    } else if (isLoggedIn && !(!islogin || isLogoutUserServlet)) { // Redirect logged-in users to the index page if trying to access login page again
 	        res.sendRedirect(req.getContextPath() + StringUtils.URL_INDEX);
 	    } else {
 	        // Allow access to the requested resource if user is logged in or accessing unprotected resources

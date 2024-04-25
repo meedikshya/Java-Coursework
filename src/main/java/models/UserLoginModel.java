@@ -3,11 +3,11 @@ package models;
 public class UserLoginModel {
     private String userName;
     private String password;
-    private String email;
+    private String userRole;
 
-    public UserLoginModel(String userName, String email, String password) {
+    public UserLoginModel(String userName, String password) {
         this.userName = userName;
-        this.email = email;
+         
         this.password = password;
     }
 
@@ -19,19 +19,21 @@ public class UserLoginModel {
         this.userName = userName;
     }
 
-    public String getEmail() {
-        return this.email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
+     
     public String getPassword() {
         return this.password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    //Getter to get and set userrole
+    public String getUserRole() {
+        return this.userRole;
+    }
+                                
+    // Setter to set password
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
     }
 }

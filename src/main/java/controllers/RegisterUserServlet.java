@@ -9,10 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import models.UserLoginModel;
 import models.UserModel;
-import services.UserServices;
 import utils.StringUtils;
 import utils.ValidationUtil;
+import services.UserServices;
 
 /**
  * Servlet implementation class RegisterUserServlet
@@ -27,7 +28,6 @@ public class RegisterUserServlet extends HttpServlet {
     public RegisterUserServlet() {
     	this.userServices = new UserServices();// Initialize UserServices object
     }
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -39,7 +39,7 @@ public class RegisterUserServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	 @Override
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 // Extract user information from request parameters
 	        String fullName = request.getParameter(StringUtils.FULL_NAME);
@@ -50,9 +50,30 @@ public class RegisterUserServlet extends HttpServlet {
 	        String address = request.getParameter(StringUtils.ADDRESS);
 	        String email = request.getParameter(StringUtils.EMAIL);
 	        String password = request.getParameter(StringUtils.PASSWORD);
-	        //String userRole = request.getParameter(StringUtils.USERROLE);
+	        String confirmPassword = request.getParameter(StringUtils.RETYPE_PASSWORD);
+	        String userRole = request.getParameter(StringUtils.USERROLE);
+	     
+
+	     // Validate if password and confirm password match
+	        if (!password.equals(confirmPassword)) {
+	            request.setAttribute(StringUtils.MESSAGE_ERROR, StringUtils.MESSAGE_ERROR_PASSWORD_UNMATCHED);
+	            request.getRequestDispatcher(StringUtils.PAGE_URL_REGISTER).forward(request, response);
+	            return;
+	        }
 	        
-	        // Create a UserModel object to hold user information
+	        // Implement data validation for all fields
+	        if (!ValidationUtil.isTextOnly(fullName) || !ValidationUtil.isAlphanumeric(username) || 
+	                !ValidationUtil.isEmail(email) || 
+	                !ValidationUtil.isNumbersOnly(phoneNumber) ||
+	                !ValidationUtil.isGenderMatches(gender) ||
+	                !ValidationUtil.isTextOnly(address) 
+	                 ) {  
+	            request.setAttribute(StringUtils.MESSAGE_ERROR, StringUtils.MESSAGE_ERROR_INCORRECT_DATA);
+	            request.getRequestDispatcher(StringUtils.PAGE_URL_REGISTER).forward(request, response);
+	            return; // Stop further execution
+	        }
+	        
+	     //Call UserService to register the user with Create a UserModel object to hold user information 
 	        UserModel user = new UserModel();
 	        user.setFullName(fullName);
 	        user.setDob(birthday);
@@ -62,27 +83,18 @@ public class RegisterUserServlet extends HttpServlet {
 	        user.setAddress(address);
 	        user.setUserName(username);
 	        user.setPassword(password);
-	        //user.setUserRole(userRole);
-	        
-	        
-	        //suser.setUserRole(userRole);
-
-	        // Implement data validation here
-	        if (!ValidationUtil.isTextOnly(fullName) || !ValidationUtil.isAlphanumeric(username) || 
-	                !ValidationUtil.isEmail(email) ||
-					!ValidationUtil.isNumbersOnly(phoneNumber) ||
-					!ValidationUtil.isGenderMatches(gender)) {
-	            request.setAttribute(StringUtils.MESSAGE_ERROR, StringUtils.MESSAGE_ERROR_INCORRECT_DATA);
-	            request.getRequestDispatcher(StringUtils.PAGE_URL_REGISTER).forward(request, response);
-	            return; // Stop further execution
-	        }
-
+	        user.setUserRole(userRole);
+	         
+	         
 	        // Call UserService to register the user
 	        int result = userServices.getUserRegisterInfo(user);
-
+	        System.out.println(result);
 	        if (result == 1) {
+	        	 
 	            request.setAttribute(StringUtils.MESSAGE_SUCCESS, StringUtils.MESSAGE_SUCCESS_REGISTER);
 	            response.sendRedirect(request.getContextPath() + StringUtils.PAGE_URL_LOGIN + "?success=true");
+	            
+	            
 	        } else if (result == 0) {
 	            request.setAttribute(StringUtils.MESSAGE_ERROR, StringUtils.MESSAGE_ERROR_REGISTER);
 	            request.getRequestDispatcher(StringUtils.PAGE_URL_REGISTER).forward(request, response);
@@ -92,4 +104,18 @@ public class RegisterUserServlet extends HttpServlet {
 	        }
 	    }
 
+	/**
+	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
+	 */
+	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 	}
+
+	/**
+	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
+	 */
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+	}
+
+}

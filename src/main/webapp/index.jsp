@@ -1,10 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+     <%@ page import= 'utils.StringUtils' %>
+ <%
+String contextPath = request.getContextPath();
+String errMsg = (String) request.getAttribute(StringUtils.MESSAGE_ERROR);
+String successMsg = (String) request.getAttribute(StringUtils.MESSAGE_SUCCESS);
+String username = (String) request.getAttribute(StringUtils.USERNAME);
+String successParam = request.getParameter(StringUtils.SUCCESS);
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
- <link rel="stylesheet" href="./stylesheets/style.css">
+ <link rel="stylesheet" href="<%=contextPath %>/stylesheets/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
     <title>Navbar</title>
 </head>

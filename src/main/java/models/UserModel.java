@@ -12,14 +12,18 @@ public class UserModel {
     private String phoneNumber;
     private String password;
     private String userRole;
+     
     
-    public UserModel() {}
-    
-    public UserModel(String userName,LocalDate dob) {
-        // TODO Auto-generated constructor stub
-    	super();
-        this.userName = userName;
+    public UserModel(String fullName,String email, LocalDate dob,String address, String userName, String gender,String phoneNumber, String password, String userRole) {
+        this.fullName = userName;
+        this.email= email;
+        this.address = address;
         this.dob = dob;
+        this.userName = userName;
+        this.gender = gender;
+        this.phoneNumber = phoneNumber;
+        this.password = password;
+        this.userRole = userRole;
     }
     
 
