@@ -27,9 +27,16 @@ public class ProductModel {
 //        this.image = imagePath;
     }
 
-    public ProductModel(String name2, String category2, double price2, int quantity2, String imageUrl) {
-		// TODO Auto-generated constructor stub
-	}
+    
+    // Constructor
+    public ProductModel(String name, String category, double price, int quantity, String imagePart) {
+        this.name = name;
+        this.category = category;
+        this.price = price;
+        this.quantity = quantity;
+        this.imageUrlFromPart = imagePart;
+//        this.image = imagePath;
+    }
 
 	// Getters
     public String getName() {

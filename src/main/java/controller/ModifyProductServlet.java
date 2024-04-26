@@ -37,6 +37,7 @@ public class ModifyProductServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String updateId = request.getParameter(StringUtils.UPDATE_ID);
 		String deleteId = request.getParameter(StringUtils.DELETE_ID);
+		System.out.println("post triggered" + deleteId);
 
 		if (updateId != null && !updateId.isEmpty()) {
 			doPut(request, response);
