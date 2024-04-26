@@ -14,74 +14,27 @@ String contextPath = request.getContextPath();
 <head>
     <meta charset="UTF-8">
     <title>List of Products</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-        }
-        h1 {
-            text-align: center;
-            margin-top: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            padding: 8px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
-        tr:hover {
-            background-color: #f2f2f2;
-        }
-        .product-info {
-            width: 80%;
-            margin: auto;
-        }
-        .product-info .products {
-            margin-top: 20px;
-        }
-        .product-info img {
-            width: 100px;
-            height: auto;
-        }
-        .btn {
-		    padding: 8px 16px; /* Adjust padding as needed */
-		    margin-right: 5px;
-		}
-
-		.btn-update {
-		    background-color: #4CAF50; /* Update button color */
-		    color: white;
-		    border: none;
-		    border-radius: 4px;
-		    cursor: pointer;
-		}
-		
-		.btn-delete {
-		    background-color: #f44336; /* Delete button color */
-		    color: white;
-		    border: none;
-		    border-radius: 4px;
-		    cursor: pointer;
-		    margin-top:20px
-		}
-    </style>
+  <link rel="stylesheet" type="text/css" href="<%=contextPath%>/stylesheets/ProductList.css" />
 </head>
 <body>
 
 <sql:setDataSource var="Dbconnection" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3306/o'clock" user="root" password=""/>
 <sql:query var="products" dataSource="${Dbconnection}">
-    SELECT * FROM product;
+    SELECT *, COUNT(*) as total FROM product;
 </sql:query>
 
 <h1>List of Products</h1>
+
+<sql:setDataSource var="Dbconnection" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3306/o'clock" user="root" password=""/>
+<sql:query var="productCount" dataSource="${Dbconnection}">
+    SELECT COUNT(*) as total FROM product;
+</sql:query>
+
+<sql:query var="products" dataSource="${Dbconnection}">
+    SELECT * FROM product;
+</sql:query>
+
+
 
 <c:choose>
     <c:when test="${empty products.rows}">
@@ -103,6 +56,7 @@ String contextPath = request.getContextPath();
                         </tr>
                     </thead>
                     <tbody>
+                      <c:set var="totalCount" value="0"/>
                         <c:forEach var="row" items="${products.rows}">
                             <tr>
                                 <td>${row.product_id}</td>
@@ -118,7 +72,7 @@ String contextPath = request.getContextPath();
 								</form>
 								<form id="deleteForm-${row.product_id}" method="post" action="<%= contextPath + StringUtils.SERVLET_URL_MODIFY_USER %>">
 							    <input type="hidden" name="<%= StringUtils.DELETE_ID %>" value="${row.product_id}" />
-							    <button type="button" class="btn btn-delete" onclick="confirmDelete('${row.product_name}')">Delete</button>
+							    <button type="button" class="btn btn-delete" onclick="confirmDelete('${row.product_id}')">Delete</button>
 								</form>
 								</td>
                             </tr>
@@ -127,6 +81,8 @@ String contextPath = request.getContextPath();
                 </table>
             </div>
         </div>
+         <p>Total Products: ${productCount.rows[0].total}</p>
+      
     </c:otherwise>
 </c:choose>
 
