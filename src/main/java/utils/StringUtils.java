@@ -13,7 +13,8 @@ public class StringUtils {
     public static final String ADD_PRODUCT_PAGE = "pages/AddProduct.jsp";
     public static final String PRODUCT_LIST_PAGE = "/pages/productList.jsp";
     public static final String SERVLET_URL_MODIFY_USER = "/ModifyProductServlet";
-
+    public static final String  PAGE_URL_ADMIN_DASHBOARD = "/pages/adminDashboard";
+    
     // Message constants for adding products
     public static final String ADD_PRODUCT_SUCCESS_MESSAGE = "Product added successfully!";
     public static final String ADD_PRODUCT_ERROR_MESSAGE = "Failed to add product. Please try again.";
