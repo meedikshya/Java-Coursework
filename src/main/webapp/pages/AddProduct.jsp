@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="utils.StringUtils"%>
+<%@page import="datasource.ProductDataSource"%>
 <%
 String contextPath = request.getContextPath();
 %>
@@ -11,7 +12,6 @@ String contextPath = request.getContextPath();
 <title>Add Product</title>
 <link rel="stylesheet" type="text/css" href="<%=contextPath%>/stylesheets/AddProducr.css" />
 <style>
-   
 </style>
 </head>
 <body>
@@ -63,7 +63,7 @@ String contextPath = request.getContextPath();
                     <input type="file" id="productImage" name="productImage" accept="image/*" required>
                 </div>
                 <div class="form-group">
-                    <button type="submit">Add Product</button>
+                    <button type="submit" >Add Product</button>
                 </div>
             </form>
         </div>
