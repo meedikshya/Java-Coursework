@@ -45,7 +45,6 @@ public class ModifyProductServlet extends HttpServlet {
 		if (deleteId != null && !deleteId.isEmpty()) {
 			doDelete(request, response);
 		}
-
 	}
 
 @Override

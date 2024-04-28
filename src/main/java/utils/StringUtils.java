@@ -6,8 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class StringUtils {
-    // Utility methods for database operations
+    // Utility methods for database operations\
 
+	public static final String FILTER_URL = "/ProductFilter";
     public static final String SERVLET_URL_ADD_PRODUCT = "/ProductServlet";
     public static final String ADD_PRODUCT_PAGE = "pages/AddProduct.jsp";
     public static final String PRODUCT_LIST_PAGE = "/pages/productList.jsp";

@@ -5,4 +5,5 @@ public class ProductDataSource {
     public static final String INSERT_PRODUCT = "INSERT INTO product(product_name, Product_Category, unit_price, stock_quantity, product_image) VALUES (?, ?, ?, ?, ?)";
     public static final String SELECT_ALL_PRODUCTS = "SELECT * FROM product";
     public static final String QUERY_DELETE_PRODUCTS= "DELETE FROM product WHERE product_id = ?";
+    public static final String COUNT_ALL_PRODUCTS =    "SELECT COUNT(*) as total FROM product";
 }
