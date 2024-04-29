@@ -3,6 +3,7 @@ package models;
 import java.time.LocalDate; // Import LocalDate class
 
 public class UserModel {
+	 private int userId;
     private String fullName;
     private String email;
     private String address;
@@ -12,18 +13,37 @@ public class UserModel {
     private String phoneNumber;
     private String password;
     private String userRole;
+     
     
-    public UserModel() {}
-    
-    public UserModel(String userName,LocalDate dob) {
-        // TODO Auto-generated constructor stub
-    	super();
-        this.userName = userName;
+    public UserModel(String fullName,String email, LocalDate dob,String address, String userName, String gender,String phoneNumber, String password, String userRole) {
+        this.fullName = fullName;
+        this.email= email;
+        this.address = address;
         this.dob = dob;
+        this.userName = userName;
+        this.gender = gender;
+        this.phoneNumber = phoneNumber;
+        this.password = password;
+        this.userRole = userRole;
     }
     
 
-    // Getter to read firstName
+    public int getUserId() {
+		return userId;
+	}
+
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+
+	public UserModel() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+	// Getter to read firstName
     public String getUserName() {
         return this.userName;
     }
@@ -80,7 +100,7 @@ public class UserModel {
 
     
     // Getter to read email
-    public String getphoneNumber() {
+    public String getPhoneNumber() {
         return this.phoneNumber;
     }
                         

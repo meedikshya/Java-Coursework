@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+     <%@ page import= 'utils.StringUtils' %>
+ <%
+String contextPath = request.getContextPath();
+String errMsg = (String) request.getAttribute(StringUtils.MESSAGE_ERROR);
+String successMsg = (String) request.getAttribute(StringUtils.MESSAGE_SUCCESS);
+String username = (String) request.getAttribute(StringUtils.USERNAME);
+String successParam = request.getParameter(StringUtils.SUCCESS);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,7 +43,7 @@
                 <input type="checkbox" id="user">
                 <label for="user">
                     <div class="user-btn">
-                    <a href = "./pages/login.jsp">Login</a>
+                    <a href = "<%= contextPath + StringUtils.PAGE_URL_LOGIN %>">Logout</a> 
                      <i class="far fa-user">
                      </i></div>
                 </label>

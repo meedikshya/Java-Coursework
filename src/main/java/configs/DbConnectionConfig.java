@@ -5,12 +5,19 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DbConnectionConfig {
+	/**
+	 * Establishes a connection to the database using pre-defined credentials and driver information.
+	 * 
+	 * @return A Connection object representing the established connection to the database.
+	 * @throws SQLException if a database access error occurs.
+	 * @throws ClassNotFoundException if the JDBC driver class is not found.
+	 */
 	public Connection getDbConnection() throws SQLException{
 		Connection conn = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			
-			String url = "jdbc:mysql://localhost:3306/o'clock";
+			String url = "jdbc:mysql://localhost:3306/oclock";
 			String userName = "root";
 			String password = "";
 			
