@@ -1,5 +1,11 @@
 package utils;
 
+import java.io.File;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class StringUtils {
 	public static final String DRIVER_NAME = "com.mysql.cj.jdbc.Driver";
 	public static final String LOCALHOST_URL ="jdbc:mysql://localhost:3306/oclock";
@@ -21,9 +27,11 @@ public class StringUtils {
 		public static final String PASSWORD = "password";
 		public static final String RETYPE_PASSWORD = "confirm-password";
 		public static final String DEFAULT_USER_ROLE = "User";
-		
+		public static final String PROFILE_IMAGE = "profileImage";
 		// End: Parameter names
 
+		
+		
 		// Start: Validation Messages
 		// RegisterUserServlet Page Messages
 		public static final String MESSAGE_SUCCESS_REGISTER = "Successfully Registered!";
@@ -63,6 +71,10 @@ public class StringUtils {
 		public static final String PAGE_URL_USER_LIST = "/pages/userList.jsp";
 
 		// End: JSP Route
+		
+		//images folder path
+		public static final String IMAGES_FOLDER = "/resources/images/UserImages";
+
 
 		// Start: Servlet Route
 		public static final String SERVLET_URL_LOGIN = "/LoginUserServlet";
@@ -88,5 +100,51 @@ public class StringUtils {
 		public static final String UPDATE_ID= "updateId";
 		// End: Normal Text
 		
+		public static final String IMAGE_ROOT_PATH = "Users\\User\\eclipse-workspace\\O'Clock\\src\\main\\webapp\\resources\\images\\";
+
+	    public static final String IMAGE_DIR_USER = "C:/" + IMAGE_ROOT_PATH + "UserImages\\";
+	  
+		
+//		public static final String IMAGE_DIR_PRODUCT = "C:\\\\Users\\\\User\\\\eclipse-workspace\\\\ProductCrud\\\\src\\\\main\\\\webapp\\\\Resources\\\\images\\\\product\\";
+		public static final String IMAGE_DIR_SAVE_PATH = "" + File.separator + IMAGE_DIR_USER ;
+		
+//		public static final String IMAGE_DIR_USER = "C:\\Users\\User\\eclipse-workspace\\ProductCrud\\src\\main\\webapp\\Resources\\images\\user\\";
+		public static final String IMAGE_DIR_SAVE_PATH_USER = "" + File.separator + IMAGE_DIR_USER;
+
+	//
+//		 public static String generateUniqueFileName() {
+//		        // Generate a unique file name using UUID
+//		        return UUID.randomUUID().toString();
+//		    }
+		
+	    public static void close(Connection conn) {
+	        if (conn != null) {
+	            try {
+	                conn.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }
+
+	    public static void close(PreparedStatement ps) {
+	        if (ps != null) {
+	            try {
+	                ps.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }
+
+	    public static void close(ResultSet rs) {
+	        if (rs != null) {
+	            try {
+	                rs.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }
 		 
 }

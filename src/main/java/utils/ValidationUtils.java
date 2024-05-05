@@ -1,7 +1,6 @@
 package utils;
 
 public class ValidationUtils {
-	
 	/**
      * Validates if the provided text contains only letters and whitespace characters.
      * 

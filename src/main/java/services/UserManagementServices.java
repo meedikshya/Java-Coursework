@@ -50,8 +50,9 @@ public class UserManagementServices {
 	                user.setPhoneNumber(result.getString("Phone_Number"));
 	                user.setEmail(result.getString("Email"));
 	                user.setPassword(result.getString("Password")); // Set password
+	                user.setImageUrlFromDB(result.getString("profileImage"));
 	                user.setUserRole(result.getString("UserRole"));
-	                // Set other attributes accordingly if needed
+	                
 	                users.add(user);
 	            }
 	            return users;

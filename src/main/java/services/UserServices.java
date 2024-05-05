@@ -35,7 +35,8 @@ public class UserServices {
 	        stmt.setString(6, user.getEmail());
 	        stmt.setString(7, user.getAddress());
 	        stmt.setString(8, PasswordEncryptionWithAes.encrypt(user.getUserName(), user.getPassword())); // Encrypt the password
-	        stmt.setString(9, user.getUserRole() !=null ? user.getUserRole() : StringUtils.DEFAULT_USER_ROLE);
+	        stmt.setString(9, user.getImageUrlFromPart());
+	        stmt.setString(10, user.getUserRole() !=null ? user.getUserRole() : StringUtils.DEFAULT_USER_ROLE);
 	        
 	        // Execute the update statement and store the number of affected rows
 	        int result = stmt.executeUpdate();
@@ -181,6 +182,7 @@ public class UserServices {
                 user.setPhoneNumber(result.getString("Phone_Number"));
                 user.setEmail(result.getString("Email")); 
 				user.setAddress(result.getString("Address"));
+				user.setImageUrlFromDB(result.getString("profileImage"));
 				user.setUserRole(result.getString("UserRole"));
                 
                 // Set other attributes accordingly if needed

@@ -16,7 +16,7 @@ import utils.StringUtils;
 /**
  * Servlet implementation class UserDisplayServlet
  */
-@WebServlet(asyncSupported = true, urlPatterns = { "/UserDisplayServlet" })
+@WebServlet(asyncSupported = true, urlPatterns = StringUtils.SERVLET_URL_USER_DISPLAY)
 public class UserDisplayServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private UserManagementServices userManagementServices = new UserManagementServices();   
@@ -33,7 +33,7 @@ public class UserDisplayServlet extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-        	System.out.println("hello");
+        	 
             // Retrieve all users
             ArrayList<UserModel> users = userManagementServices.getAllUsersInfo();
             

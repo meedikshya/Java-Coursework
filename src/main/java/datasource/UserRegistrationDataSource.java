@@ -12,8 +12,8 @@ public class UserRegistrationDataSource {
 	 * 
 	 */
 	public static final String INSERT_USER = "INSERT INTO user"
-			+ "(user_name, Fullname, Gender, Birthday, Phone_Number, Email, Address, Password, userRole)"
-			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			+ "(user_name, Fullname, Gender, Birthday, Phone_Number, Email, Address, Password, profileImage, userRole)"
+			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	
 	public static final String GET_LOGIN_USER_INFO = "SELECT user_name, password FROM user WHERE user_name = ?";
 
