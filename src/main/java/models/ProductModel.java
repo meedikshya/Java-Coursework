@@ -6,10 +6,8 @@ import utils.StringUtils;
 
 import java.io.File;
 
-
-
 public class ProductModel {
- 
+//	private int id;
     private String name;
     private String category;
     private double price;
@@ -18,7 +16,8 @@ public class ProductModel {
 //    private Part image; // Change image type from String to Part
 
     // Constructor
-    public ProductModel(String name, String category, double price, int quantity, Part imagePart) {
+    public ProductModel( String name, String category, double price, int quantity, Part imagePart) {
+//    	this.id = id;
         this.name = name;
         this.category = category;
         this.price = price;
@@ -26,10 +25,15 @@ public class ProductModel {
         this.imageUrlFromPart = getImageUrl(imagePart);
 //        this.image = imagePath;
     }
+    
+    public ProductModel() {
+    
+    }
 
     
     // Constructor
     public ProductModel(String name, String category, double price, int quantity, String imagePart) {
+//    	this.id=id;
         this.name = name;
         this.category = category;
         this.price = price;
@@ -38,7 +42,11 @@ public class ProductModel {
 //        this.image = imagePath;
     }
 
-	// Getters
+	 //Getters
+//    public int getId() {
+//    	return id;
+//    }
+    
     public String getName() {
         return name;
     }
@@ -60,6 +68,10 @@ public class ProductModel {
 	}
     
     // Setters
+//    public void setId(int id) {
+//    	this.id = id;
+//    }
+    
     public void setName(String name) {
         this.name = name;
     }
@@ -80,11 +92,12 @@ public class ProductModel {
 		this.imageUrlFromPart = getImageUrl(part);
 	}
 	
-	public void setImageUrlFromDB(String imageUrl) {
+public void setImageUrlFromDB(String imageUrl) {
 		this.imageUrlFromPart = imageUrl;
-	}
+}
 	
 	 @Override
+	 //to make the console output look better
 	    public String toString() {
 	        return "ProductModel{" +
 	                "name='" + name + '\'' +
@@ -96,7 +109,7 @@ public class ProductModel {
 	    }
 	
 	private String getImageUrl(Part part) {
-		String savePath = StringUtils.IMAGE_DIR_USER;
+		String savePath = StringUtils.IMAGE_DIR_PRODUCT;
 		File fileSaveDir = new File(savePath);
 		String imageUrlFromPart = null;
 		if (!fileSaveDir.exists()) {
@@ -108,9 +121,10 @@ public class ProductModel {
 		for (String s : items) {
 			if (s.trim().startsWith("filename")) {
 				imageUrlFromPart = s.substring(s.indexOf("=") + 2, s.length() - 1);
+				break;
 			}
 		}
-		
+		 // If no filename was extracted from the Content-Disposition header, set a default filename.
 		if (imageUrlFromPart == null || imageUrlFromPart.isEmpty()) {
 			imageUrlFromPart = "download.jpg";
 		}

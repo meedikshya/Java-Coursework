@@ -1,9 +1,11 @@
 package utils;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.UUID;
 
 public class StringUtils {
     // Utility methods for database operations\
@@ -13,6 +15,7 @@ public class StringUtils {
     public static final String ADD_PRODUCT_PAGE = "pages/AddProduct.jsp";
     public static final String PRODUCT_LIST_PAGE = "/pages/productList.jsp";
     public static final String SERVLET_URL_MODIFY_USER = "/ModifyProductServlet";
+    public static final String SERVLET_URL_UPDATE_USER = "/UpdateProductServlet";
     public static final String  PAGE_URL_ADMIN_DASHBOARD = "/pages/adminDashboard";
     
     // Message constants for adding products
@@ -30,10 +33,25 @@ public class StringUtils {
     public static final String MESSAGE_SUCCESS = "successMessage";
     public static final String MESSAGE_ERROR = "errorMessage";
     
-    public static final String IMAGE_ROOT_PATH = "Users\\User\\eclipse-workspace\\ProductCrud\\src\\main\\webapp\\Resources\\images";
+  
+    public static final String IMAGE_ROOT_PATH = "Users\\User\\eclipse-workspace\\ProductCrud\\src\\main\\webapp\\Resources\\images\\";
+
     public static final String IMAGE_DIR_PRODUCT = "C:/" + IMAGE_ROOT_PATH + "product\\";
 	public static final String IMAGE_DIR_USER = "C:/" + IMAGE_ROOT_PATH + "user\\";
+  
+	
+//	public static final String IMAGE_DIR_PRODUCT = "C:\\\\Users\\\\User\\\\eclipse-workspace\\\\ProductCrud\\\\src\\\\main\\\\webapp\\\\Resources\\\\images\\\\product\\";
+	public static final String IMAGE_DIR_SAVE_PATH = "" + File.separator + IMAGE_DIR_PRODUCT;
+	
+//	public static final String IMAGE_DIR_USER = "C:\\Users\\User\\eclipse-workspace\\ProductCrud\\src\\main\\webapp\\Resources\\images\\user\\";
+	public static final String IMAGE_DIR_SAVE_PATH_USER = "" + File.separator + IMAGE_DIR_USER;
 
+//
+//	 public static String generateUniqueFileName() {
+//	        // Generate a unique file name using UUID
+//	        return UUID.randomUUID().toString();
+//	    }
+	
     public static void close(Connection conn) {
         if (conn != null) {
             try {

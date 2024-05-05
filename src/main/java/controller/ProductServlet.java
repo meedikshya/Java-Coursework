@@ -1,6 +1,9 @@
 package controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -82,31 +85,7 @@ public class ProductServlet extends HttpServlet {
             }
         }
     }
-//    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-//            throws ServletException, IOException {
-//        try {
-//            List<ProductModel> allProducts = productServices.getAllProducts();
-//
-//            if (allProducts != null && !allProducts.isEmpty()) {
-//                System.out.println("Total number of products: " + allProducts.size());
-//                System.out.println("Product list attribute set: " + allProducts);
-//                
-//                for (ProductModel product : allProducts) {
-//                    System.out.println(product);
-//                }
-//                request.setAttribute("productList", allProducts);
-//            } else {
-//                System.out.println("No products found.");
-//                request.setAttribute("productList", new ArrayList<ProductModel>());
-//                // Handle case where no products are found, perhaps display an error message
-//            }
-//            request.getRequestDispatcher(StringUtils.PRODUCT_LIST_PAGE).forward(request, response);
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//            // Handle exception, perhaps display an error message
-//        }
-//    }
-//    
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String name = request.getParameter("productName");
@@ -119,7 +98,14 @@ public class ProductServlet extends HttpServlet {
 
         ProductModel product = new ProductModel(name, category, price, quantity, imagePart);
 
+//        String savePath = StringUtils.IMAGE_DIR_SAVE_PATH;
+//	    String fileName = ProductModel.getImageUrlFromPart();
+//	    if(!fileName.isEmpty() && fileName != null)
+//    		imagePart.write(savePath + fileName);
+//        
+        
         int result = 0; 
+        
         try {
             result = productServices.addProduct(product);
         } catch (Exception e) {
@@ -127,8 +113,19 @@ public class ProductServlet extends HttpServlet {
         }
 
         if (result > 0) {
+        	
+        	// Get the image file name from the student object (assuming it was extracted earlier)
+        	String fileName = product.getImageUrlFromPart();
+        				
+        	// Check if a filename exists (not empty or null)
+        	if (!fileName.isEmpty() && fileName != null) {
+        	// Construct the full image save path by combining the directory path and filename
+        	String savePath = StringUtils.IMAGE_DIR_PRODUCT;
+        	imagePart.write(savePath + fileName);  // Save the uploaded image to the specified path
+        	}
+        	
             request.setAttribute(StringUtils.MESSAGE_SUCCESS, StringUtils.ADD_PRODUCT_SUCCESS_MESSAGE);
-            response.sendRedirect(request.getContextPath() + StringUtils.PRODUCT_LIST_PAGE);
+            response.sendRedirect(request.getContextPath() + StringUtils.SERVLET_URL_ADD_PRODUCT);
 
             List<ProductModel> addedProducts = new ArrayList<>();
             addedProducts.add(product);
@@ -163,8 +160,19 @@ public class ProductServlet extends HttpServlet {
     }
 
 //    private String saveImage(Part imagePart) throws IOException {
-//        // Implement logic to save the image to a location on the server
-//        // Return the file path or name where the image is saved
-//        return null; // Placeholder, implement your logic here
+//        String savePath = StringUtils.IMAGE_DIR_SAVE_PATH; 
+//        String fileName = StringUtils.generateUniqueFileName(); // Generates a unique file name
+//        String filePath = savePath + File.separator + fileName;
+//
+//        try (InputStream inputStream = imagePart.getInputStream();
+//             FileOutputStream outputStream = new FileOutputStream(filePath)) {
+//            byte[] buffer = new byte[4096];
+//            int bytesRead;
+//            while ((bytesRead = inputStream.read(buffer)) != -1) {
+//                outputStream.write(buffer, 0, bytesRead);
+//            }
+//        }
+//
+//        return fileName; 
 //    }
 }

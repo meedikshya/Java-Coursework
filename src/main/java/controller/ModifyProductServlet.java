@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import configs.Dbconnection;
+import models.ProductModel;
 import services.ProductServices;
 import utils.StringUtils;
 
@@ -18,14 +19,14 @@ import utils.StringUtils;
 public class ModifyProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	  private final Dbconnection dbObj = new Dbconnection();
+	  private final Dbconnection dbObj;
 
        
     /**
      * @see HttpServlet#HttpServlet()
      */
     public ModifyProductServlet() {
-        super();
+      this.dbObj = new Dbconnection();
         // TODO Auto-generated constructor stub
     }
 
@@ -50,24 +51,33 @@ public class ModifyProductServlet extends HttpServlet {
 @Override
 protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	System.out.println("put triggered");
+	String name = req.getParameter(StringUtils.UPDATE_ID);
+	 ProductModel products = ProductServices.getProductByName(name);
+
+	req.setAttribute("product", products);
+	req.getRequestDispatcher("/pages/modifyPage.jsp").forward(req, resp);
+
 }
+
 
 @Override
 protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    String productId = req.getParameter(StringUtils.DELETE_ID);
-    if (productId != null && !productId.isEmpty()) {
-        try {
-            if (ProductServices.deleteProduct(productId) == 1) {
-                req.setAttribute(StringUtils.MESSAGE_SUCCESS, StringUtils.MESSAGE_SUCCESS_DELETE);
-            } else {
-                req.setAttribute(StringUtils.MESSAGE_ERROR, StringUtils.MESSAGE_ERROR_DELETE);
-            }
-        } catch (ClassNotFoundException e) {
-            req.setAttribute(StringUtils.MESSAGE_ERROR, StringUtils.MESSAGE_ERROR_SERVER);
-            e.printStackTrace();
-        }
-    }
-    resp.sendRedirect(req.getContextPath() + StringUtils.PRODUCT_LIST_PAGE);
-}
+	System.out.println("delete triggered");
+	try {
+		if (ProductServices.deleteProduct(req.getParameter(StringUtils.DELETE_ID)) == 1) {
+			req.setAttribute(StringUtils.MESSAGE_SUCCESS, StringUtils.MESSAGE_SUCCESS_DELETE);
+				resp.sendRedirect(req.getContextPath() + StringUtils.SERVLET_URL_ADD_PRODUCT);
+			} else {
+				req.setAttribute(StringUtils.MESSAGE_ERROR, StringUtils.MESSAGE_ERROR);
+				resp.sendRedirect(req.getContextPath() + StringUtils.SERVLET_URL_ADD_PRODUCT);
+			}
+	} catch (ClassNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	}
 
 }
