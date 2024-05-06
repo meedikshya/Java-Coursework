@@ -28,6 +28,7 @@ List<ProductModel> productList = new ArrayList<ProductModel>();
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="<%=contextPath%>/stylesheets/product.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <title>Product</title>
 </head>
 <body>
@@ -72,16 +73,21 @@ List<ProductModel> productList = new ArrayList<ProductModel>();
 			<c:forEach var="product" items="${productList}">
 			    <div class="menu_card">
 			        <div class="menu_image">
-  					<img src="${product.images}" alt="Product Image">
+  						<img src="<%=contextPath%>/images/${product.imageUrlFromPart}" alt="LA LA">
 			        </div>
+			
 			
 			        <div class="menu_info">
 			            <h2>${product.name}</h2>
+
 
 			            <p>${product.description}</p>
 
 			            <h3>Rs. ${product.price}</h3>
 			            <div class="menu_icon">
+			            	<i class="fa-solid fa-star"></i>
+			            	<i class="fa-solid fa-star"></i>
+			            	<i class="fa-solid fa-star"></i>
 			                <i class="fa-solid fa-star"></i>
 			                <i class="fa-solid fa-star-half-stroke"></i>
 			            </div>
@@ -93,334 +99,11 @@ List<ProductModel> productList = new ArrayList<ProductModel>();
 			    </div>
 			</c:forEach>
 			<c:if test="${empty productList}">
-		        <p>No products available.</p>
+		        <p>No products available. lala</p>
 		    </c:if>
 			        
 	    </div>
 	</div>
-
-            
-            
-            
-            
-            
-<!--             <div class="menu_card">
-
-                <div class="menu_image">
-                    <img src="../images/watch1.jpeg">
-                </div>
-
-                <div class="menu_info">
-                    <h2>Future Go Pro</h2>
-                    <p>
-	                        Brand Riverson<br>
-	                        Color Black, Pink <br>
-	                        Display 1.9 inches Color display<br>
-                    </p>
-                    <h3>Rs. 11,399</h3>
-                    <div class="menu_icon">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star-half-stroke"></i>
-                    </div>
-                    <a href="#" class="menu_btn">Add to cart</a>
-                </div>
-
-            </div>  -->
-
-<!--             <div class="menu_card">
-
-                <div class="menu_image">
-                    <img src="../images/watch2.jpeg">
-                </div>
-
-                <div class="menu_info">
-                    <h2>Future Go Pro</h2>
-                    <p>
-                        Brand Hifuture <br>
-                        Color Black and Silver<br>
-                        Display	1.32 inch Full Touch Display<br>
-                    </p>
-                    <h3>Rs. 11,399</h3>
-                    <div class="menu_icon">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star-half-stroke"></i>
-                    </div>
-                    <a href="#" class="menu_btn">Add to cart</a>
-                </div>
-
-            </div>  -->
-<!-- 
-            <div class="menu_card">
-
-                <div class="menu_image">
-                    <img src="../images/watch3.png">
-                </div>
-
-                <div class="menu_info">
-                    <h2>Nova Pro</h2>
-                    <p>
-                        Brand Ultima<br>
-                        Color Black, Silver and Pink <br>
-                        Display 2.04" TRU Amoled Display<br>
-                    </p>
-                    <h3>Rs. 4,399</h3>
-                    <div class="menu_icon">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star-half-stroke"></i>
-                    </div>
-                    <a href="#" class="menu_btn">Add to cart</a>
-                </div>
-
-            </div> 
-
-            <div class="menu_card">
-
-                <div class="menu_image">
-                    <img src="../images/watch4.jpeg">
-                </div>
-
-                <div class="menu_info">
-                    <h2>FutureGo Flex</h2>
-                    <p>
-                        Brand	Hifuture<br>
-                        Color	Silver and Black<br>
-                        Display	1.32-inch Full HD Display<br>
-                    </p>
-                    <h3>Rs. 10,499</h3>
-                    <div class="menu_icon">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star-half-stroke"></i>
-                    </div>
-                    <a href="#" class="menu_btn">Add to cart</a>
-                </div>
-
-            </div> 
-
-            <div class="menu_card">
-
-                <div class="menu_image">
-                    <img src="../images/watch5.jpeg">
-                </div>
-
-                <div class="menu_info">
-                    <h2>Mi Band 2</h2>
-                    <p>
-                        Brand	Mi<br>
-                        Color	Black<br>
-                        Display	0.42 OLED Display<br>
-                    </p>
-                    <h3>Rs. 3,150</h3>
-                    <div class="menu_icon">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star-half-stroke"></i>
-                    </div>
-                    <a href="#" class="menu_btn">Add to cart</a>
-                </div>
-
-            </div> 
-
-            <div class="menu_card">
-
-                <div class="menu_image">
-                    <img src="../images/watch6.jpeg">
-                </div>
-
-                <div class="menu_info">
-                    <h2>iWatch s7</h2>
-                    <p>
-                        Brand	Apple<br>
-                        Color	Graphite, Gold, Silver<br>
-                        Display	1.9 inches (484 x 396 pixels)<br>
-                    </p>
-                    <h3>Rs. 85,000</h3>
-                    <div class="menu_icon">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star-half-stroke"></i>
-                    </div>
-                    <a href="#" class="menu_btn">Add to cart</a>
-                </div>
-
-            </div> 
-
-            <div class="menu_card">
-
-                <div class="menu_image">
-                    <img src="../images/watch7.jpeg">
-                </div>
-
-                <div class="menu_info">
-                    <h2>AQFit W9</h2>
-                    <p>
-                        Brand AQFit<br>
-                        Color Black<br>
-                        Display	33.02mm<br>
-                    </p>
-                    <h3>Rs. 9,999</h3>
-                    <div class="menu_icon">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star-half-stroke"></i>
-                    </div>
-                    <a href="#" class="menu_btn">Add to cart</a>
-                </div>
-
-            </div> 
-
-            <div class="menu_card">
-
-                <div class="menu_image">
-                    <img src="../images/watch8.jpeg">
-                </div>
-
-                <div class="menu_info">
-                    <h2>H23S</h2>
-                    <p>
-                        Brand Hifuture<br>
-                        Color Black, Gray, Pink, Purple<br>
-                        Display 1.3 inch<br>
-                    </p>
-                    <h3>Rs. 2,690</h3>
-                    <div class="menu_icon">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star-half-stroke"></i>
-                    </div>
-                    <a href="#" class="menu_btn">Add to cart</a>
-                </div>
-
-            </div> 
-
-            <div class="menu_card">
-
-                <div class="menu_image">
-                    <img src="../images/watch9.jpeg">
-                </div>
-
-                <div class="menu_info">
-                    <h2>R840N</h2>
-                    <p>
-                        Brand samsung<br>
-                        Color Black<br>
-                        Display 1.4" (34.5mm)<br>
-                    </p>
-                    <h3>Rs. 56,000</h3>
-                    <div class="menu_icon">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star-half-stroke"></i>
-                    </div>
-                    <a href="#" class="menu_btn">Add to cart</a>
-                </div>
-
-            </div> 
-
-            <div class="menu_card">
-
-                <div class="menu_image">
-                    <img src="../images/watch10.jpeg">
-                </div>
-
-                <div class="menu_info">
-                    <h2>Motive 7S</h2>
-                    <p>
-                        Brand	Riverson <br>
-                        Color	Black, Pink <br>
-                        Display	1.9 inches Color display<br>
-                    </p>
-                    <h3>Rs. 6,999</h3>
-                    <div class="menu_icon">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star-half-stroke"></i>
-                    </div>
-                    <a href="#" class="menu_btn">Add to cart</a>
-                </div>
-
-            </div> 
-
-            <div class="menu_card">
-
-                <div class="menu_image">
-                    <img src="../images/watch11.jpeg">
-                </div>
-
-                <div class="menu_info">
-                    <h2>TLW08Plus</h2>
-                    <p>
-                        Brand Name	Maxtoall<br>
-                        Color	Black, Blue,Orange,Pink,Green<br>
-                        Display	0.96''TFT<br>
-                    </p>
-                    <h3>Rs. 1,999</h3>
-                    <div class="menu_icon">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star-half-stroke"></i>
-                    </div>
-                    <a href="#" class="menu_btn">Add to cart</a>
-                </div>
-
-            </div> 
-
-            <div class="menu_card">
-
-                <div class="menu_image">
-                    <img src="../images/watch12.jpeg">
-                </div>
-
-                <div class="menu_info">
-                    <h2>Mi Band 5</h2>
-                    <p>
-                        Brand	MI<br>
-                        Color	Black<br>
-                        Display 0.42 OLED Display<br>
-                    </p>
-                    <h3>Rs. 4,500</h3>
-                    <div class="menu_icon">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star-half-stroke"></i>
-                    </div>
-                    <a href="#" class="menu_btn">Add to cart</a>
-                </div>
-
-            </div> 
-            
-        </div>
-
-    </div>
--->
-
 
 
 <!--     Gallary -->

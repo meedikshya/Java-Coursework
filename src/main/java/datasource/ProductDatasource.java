@@ -7,7 +7,7 @@ public class ProductDatasource {
 	
 	public static final String GET_ALL_PRODUCTS = "SELECT * FROM products";
 	
-	public static final String GET_PRODUCT_ID  = "SELECT count(*) FROM products WHERE p_id = ?";
+	public static final String GET_PRODUCT_ID  = "SELECT count(*) FROM products WHERE id = ?";
 	
 	public static final String GET_PRODUCT_NAME  = "SELECT count(*) FROM products WHERE name = ?";
 	
@@ -17,7 +17,7 @@ public class ProductDatasource {
 	
 	public static final String GET_IMAGE  = "SELECT count(*) FROM products WHERE image = ?";
 	
-	public static final String DELETE_PRODUCT = "SELECT FROM products WHERE p_id = ?";	
+	public static final String DELETE_PRODUCT = "SELECT FROM products WHERE id = ?";	
 	
 	public static final String USER_NAME = "SELECT id FROM users WHERE user_name = ?";
 	

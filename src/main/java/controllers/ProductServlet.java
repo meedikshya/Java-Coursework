@@ -28,8 +28,8 @@ import utils.StringUtils;
 
 @WebServlet(asyncSupported = true, urlPatterns = {"/ProductServlet"})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-maxFileSize = 1024 * 1024 * 10, // 10MB
-maxRequestSize = 1024 * 1024 * 50)
+	maxFileSize = 1024 * 1024 * 10, // 10MB
+	maxRequestSize = 1024 * 1024 * 50)
 
 public class ProductServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -44,19 +44,22 @@ public class ProductServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            
+        	
             List<ProductModel> allProducts = productServices.getAllProducts();
             
             request.setAttribute("productList", allProducts);
             
-            System.out.println(request.getContextPath());
+//            System.out.println(allProducts);
+//            System.out.println("Image directory path: " + StringUtils.IMAGE_DIR_PRODUCT);
+//            System.out.println(request.getContextPath());
             request.getRequestDispatcher(StringUtils.PRODUCT_LIST_PAGE).forward(request, response);
+            
+            
             
         } catch (Exception e) {
             e.printStackTrace();
             // Handle exception, perhaps display an error message
-            System.out.println("errorrrr");
-            
+            System.out.println("errorrrr");            
         }
     }
 
