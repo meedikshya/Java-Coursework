@@ -69,7 +69,9 @@ public class StringUtils {
 		public static final String URL_INDEX =  "/index.jsp";
 		public static final String PAGE_URL_ADMIN_DASHBOARD = "/pages/adminDashboard.jsp";
 		public static final String PAGE_URL_USER_LIST = "/pages/userList.jsp";
-
+		public static final String PAGE_URL_USER_PROFILE = "/pages/userProfile.jsp";
+		
+		
 		// End: JSP Route
 		
 		//images folder path
@@ -83,7 +85,8 @@ public class StringUtils {
 		public static final String SERVLET_URL_HOME = "/HomeServlet";
 		public static final String SERVLET_URL_ADMIN = "/AdminServlet";
 		public static final String SERVLET_URL_USER_DISPLAY = "/UserDisplayServlet";
-
+		public static final String SERVLET_URL_USER_PROFILE = "/UserProfileServlet";
+		
 		// End: Servlet Route
 
 		// Start: Normal Text
