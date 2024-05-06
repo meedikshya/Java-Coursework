@@ -12,7 +12,7 @@ public class UserModel {
     private String fullName;
     private String email;
     private String address;
-    private LocalDate dob;
+    private LocalDate birthday;
     private String userName;
     private String gender;
     private String phoneNumber;
@@ -20,13 +20,16 @@ public class UserModel {
     private String  imageUrlFromPart;
     private String userRole;
      
+    public UserModel() {
+		// TODO Auto-generated constructor stub
+	}
     
-    public UserModel(String fullName,String email, LocalDate dob,String address, String userName, String gender,String phoneNumber, String password,Part imagePart, String userRole) {
+    public UserModel(String userName,String fullName,String gender, LocalDate birthday,String phoneNumber,String email,String address, String password,Part imagePart, String userRole) {
         super();
     	this.fullName = fullName;
         this.email= email;
         this.address = address;
-        this.dob = dob;
+        this.birthday = birthday;
         this.userName = userName;
         this.gender = gender;
         this.phoneNumber = phoneNumber;
@@ -37,9 +40,7 @@ public class UserModel {
     
    
     
-	public UserModel() {
-		// TODO Auto-generated constructor stub
-	}
+	
 
     public int getUserId() {
 		return userId;
@@ -77,13 +78,13 @@ public class UserModel {
  
     
     // Getter to read dob
-    public LocalDate getDob() {
-        return this.dob;
+    public LocalDate getBirthday() {
+        return this.birthday;
     }
             
     // Setter to set dob
-    public void setDob(LocalDate dob) {
-        this.dob = dob;
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
     }
     
    

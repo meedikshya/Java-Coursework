@@ -43,7 +43,7 @@ String successParam = request.getParameter(StringUtils.SUCCESS);
                 <input type="checkbox" id="user">
                 <label for="user">
                     <div class="user-btn">
-                    <a href = "<%= contextPath + StringUtils.PAGE_URL_LOGIN %>">Logout</a> 
+                    <a href="<%= contextPath + StringUtils.PAGE_URL_LOGIN %>">Logout</a> 
                      <i class="far fa-user">
                      </i></div>
                 </label>

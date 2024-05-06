@@ -100,7 +100,7 @@ public class StringUtils {
 		public static final String UPDATE_ID= "updateId";
 		// End: Normal Text
 		
-		public static final String IMAGE_ROOT_PATH = "Users\\User\\eclipse-workspace\\O'Clock\\src\\main\\webapp\\resources\\images\\";
+		public static final String IMAGE_ROOT_PATH = "Users\\Binita bhandari\\eclipse-workspace\\ O'Clock\\src\\main\\webapp\\resources\\images\\UserImages";
 
 	    public static final String IMAGE_DIR_USER = "C:/" + IMAGE_ROOT_PATH + "UserImages\\";
 	  
@@ -108,8 +108,7 @@ public class StringUtils {
 //		public static final String IMAGE_DIR_PRODUCT = "C:\\\\Users\\\\User\\\\eclipse-workspace\\\\ProductCrud\\\\src\\\\main\\\\webapp\\\\Resources\\\\images\\\\product\\";
 		public static final String IMAGE_DIR_SAVE_PATH = "" + File.separator + IMAGE_DIR_USER ;
 		
-//		public static final String IMAGE_DIR_USER = "C:\\Users\\User\\eclipse-workspace\\ProductCrud\\src\\main\\webapp\\Resources\\images\\user\\";
-		public static final String IMAGE_DIR_SAVE_PATH_USER = "" + File.separator + IMAGE_DIR_USER;
+	 	 
 
 	//
 //		 public static String generateUniqueFileName() {

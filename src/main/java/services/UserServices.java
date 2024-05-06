@@ -30,7 +30,7 @@ public class UserServices {
 	        stmt.setString(1, user.getUserName());  
 	        stmt.setString(2, user.getFullName());  
 	        stmt.setString(3, user.getGender());
-	        stmt.setDate(4, Date.valueOf(user.getDob()));
+	        stmt.setDate(4, Date.valueOf(user.getBirthday()));
 	        stmt.setString(5, user.getPhoneNumber());
 	        stmt.setString(6, user.getEmail());
 	        stmt.setString(7, user.getAddress());
@@ -178,7 +178,7 @@ public class UserServices {
                 user.setUserName(result.getString("user_name"));
                 user.setFullName(result.getString("Fullname"));
                 user.setGender(result.getString("Gender"));
-                user.setDob(result.getDate("Birthday").toLocalDate());
+                user.setBirthday(result.getDate("Birthday").toLocalDate());
                 user.setPhoneNumber(result.getString("Phone_Number"));
                 user.setEmail(result.getString("Email")); 
 				user.setAddress(result.getString("Address"));
@@ -194,6 +194,18 @@ public class UserServices {
             return null;
         }
     }
+    
+    public int deleteStudentInfo(String username) throws ClassNotFoundException {
+		try (Connection con = dbObj.getDbConnection()) {
+			PreparedStatement st = con.prepareStatement(UserRegistrationDataSource.QUERY_DELETE_USER);
+			st.setString(1, username);
+			return st.executeUpdate();
+		} catch (SQLException ex) {
+			ex.printStackTrace(); // Log the exception for debugging
+			return -1;
+		}
+	} 
 
+    
     
 }

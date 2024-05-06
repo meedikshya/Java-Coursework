@@ -44,7 +44,7 @@ public class UserManagementServices {
 	                user.setUserId(result.getInt("user_id")); // Set userId
 	                user.setFullName(result.getString("Fullname"));
 	                user.setUserName(result.getString("user_name"));
-	                user.setDob(result.getDate("Birthday").toLocalDate());
+	                user.setBirthday(result.getDate("Birthday").toLocalDate());
 	                user.setGender(result.getString("Gender"));
 	                user.setAddress(result.getString("Address"));
 	                user.setPhoneNumber(result.getString("Phone_Number"));
