@@ -29,8 +29,6 @@ public class ProductModel {
     public ProductModel() {
     
     }
-
-    
     // Constructor
     public ProductModel(String name, String category, double price, int quantity, String imagePart) {
 //    	this.id=id;

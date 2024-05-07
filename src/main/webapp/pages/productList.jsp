@@ -18,7 +18,7 @@ String contextPath = request.getContextPath();
 </head>
 <body>
 <h1>List of Products</h1>
-<a href="/ProductCrud/ProductServlet">Click here to go to the servlet</a>
+
 <c:choose>
     <c:when test="${empty productLists}">
         <p>Empty ProductList</p>
