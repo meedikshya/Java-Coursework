@@ -194,18 +194,5 @@ public class UserServices {
             return null;
         }
     }
-    
-    public int deleteStudentInfo(String username) throws ClassNotFoundException {
-		try (Connection con = dbObj.getDbConnection()) {
-			PreparedStatement st = con.prepareStatement(UserRegistrationDataSource.QUERY_DELETE_USER);
-			st.setString(1, username);
-			return st.executeUpdate();
-		} catch (SQLException ex) {
-			ex.printStackTrace(); // Log the exception for debugging
-			return -1;
-		}
-	} 
-
-    
-    
+  
 }

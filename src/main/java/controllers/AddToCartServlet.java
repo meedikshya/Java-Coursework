@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class UserProfileServlet
+ * Servlet implementation class AddToCartServlet
  */
-@WebServlet(asyncSupported = true, urlPatterns = { "/UserProfileServlet" })
-public class UserProfileServlet extends HttpServlet {
+@WebServlet(asyncSupported = true, urlPatterns = { "/AddToCartServlet" })
+public class AddToCartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserProfileServlet() {
+    public AddToCartServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import utils.StringUtils;
+import utils.StringUtilsProduct;
+import utils.StringUtilsUserProduct;
 
 public class AuthenticationFilter implements Filter {
 
@@ -33,12 +35,22 @@ public class AuthenticationFilter implements Filter {
 	    String uri = req.getRequestURI();
 
 	    // Allow access to static resources (CSS) and the index page without checking login
-	    if (uri.endsWith(".css") || uri.endsWith(".png") || uri.endsWith(".jpg")) {
+	    if (uri.endsWith(".css") || uri.endsWith(".png") || uri.endsWith(".jpeg")) {
 	        chain.doFilter(request, response);
 	        return;
 	    }
 	    
 	    if (uri.endsWith(StringUtils.SERVLET_URL_USER_DISPLAY) || uri.endsWith(StringUtils.PAGE_URL_USER_LIST)) {
+	        chain.doFilter(request, response);
+	        return;
+	    }
+	    
+	    if (uri.endsWith(StringUtilsProduct.SERVLET_URL_ADD_PRODUCT) || uri.endsWith(StringUtilsProduct.PRODUCT_LIST_PAGE)) {
+	        chain.doFilter(request, response);
+	        return;
+	    }
+
+	    if (uri.endsWith(StringUtilsUserProduct.SERVLET_PRODUCT) || uri.endsWith(StringUtilsUserProduct.PRODUCT_LIST_PAGE)) {
 	        chain.doFilter(request, response);
 	        return;
 	    }

@@ -32,11 +32,12 @@ public class UserRegistrationDataSource {
 	
 	
 	public static final String  GET_USER_ID = "SELECT id FROM user WHERE user_name = ?";
-	public static final String  QUERY_DELETE_USER = "DELETE FROM user WHERE user_name = ?";
+	public static final String  QUERY_DELETE_USER = "DELETE FROM user WHERE user_id= ?";
+	public static final String QUERY_USER = "SELECT * from user WHERE user_id = ?";
 	
-	public static final String SELECT_USER_BY_ID = "select user_id,user_name, Fullname, Gender, Birthday, Phone_Number, Email, Address, Password, userRole  from user where user_id =?";
+	public static final String SELECT_USER_BY_ID = "select user_id, Fullname, Gender, Birthday, Phone_Number, Email, Address, Password, profileImage from user where user_id =?";
  
-	public static final String UPDATE_USER  = "update user set user_name=?, Fullname=?, Gender=?, Birthday=?, Phone_Number=?, Email=?, Address=?, Password=?, userRole=? where user_id = ?";
+	public static final String UPDATE_USER  = "update user set user_name=?, Fullname=?, Gender=?, Birthday=?, Phone_Number=?, Email=?, Address=?, Password=? where user_id = ?";
 
 	}
 

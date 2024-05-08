@@ -85,8 +85,8 @@ public class StringUtils {
 		public static final String SERVLET_URL_HOME = "/HomeServlet";
 		public static final String SERVLET_URL_ADMIN = "/AdminServlet";
 		public static final String SERVLET_URL_USER_DISPLAY = "/UserDisplayServlet";
-		public static final String SERVLET_URL_USER_PROFILE = "/UserProfileServlet";
-		
+		public static final String SERVLET_URL_USER_PROFILE_DELETE = "/UserProfileDeleteServlet";
+		public static final String SERVLET_URL_USER_PROFILE_UPDATE = "/UserProfileUpdateServlet";
 		// End: Servlet Route
 
 		// Start: Normal Text

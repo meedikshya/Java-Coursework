@@ -166,7 +166,7 @@ public class UserModel {
 		this.imageUrlFromPart = imageUrl;
 }
 
-    private String getImageUrl(Part part) {
+    public String getImageUrl(Part part) {
 		// Define the directory path to store uploaded user images. This path should be configured elsewhere in the application.
 	    String savePath = StringUtils.IMAGE_DIR_USER;
 
