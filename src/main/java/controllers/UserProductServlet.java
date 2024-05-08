@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,9 +10,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import models.UserProductModel;
 import services.UserProductServices;
+import utils.StringUtils;
 import utils.StringUtilsUserProduct;
 
 /**
@@ -43,6 +46,9 @@ public class UserProductServlet extends HttpServlet {
             List<UserProductModel> allProducts = UserProductServices.getAllProducts();
             
             request.setAttribute("productList", allProducts);
+          
+         
+           
             
 //            System.out.println(allProducts);
 //            System.out.println("Image directory path: " + StringUtils.IMAGE_DIR_PRODUCT);

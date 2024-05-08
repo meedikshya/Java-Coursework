@@ -48,7 +48,7 @@
                 <label for="userLoggedIn">  
                     <div class="user-btn">
                         <a href="<%= contextPath + StringUtils.PAGE_URL_USER_PROFILE %>"><i class="far fa-user"></i></a>
-                        <a href="<%= contextPath + StringUtils.SERVLET_URL_LOGOUT %>">Logout</a> 
+                        <button onclick="location.href='<%= contextPath + StringUtils.SERVLET_URL_LOGOUT %>'">Logout</button>
                     </div>
                 </label>
             <%
@@ -57,7 +57,7 @@
                 <input type="checkbox" id="user">
                 <label for="user">
                     <div class="user-btn">
-                        <a href="<%= contextPath + StringUtils.PAGE_URL_LOGIN %>">Login</a> <!-- Change login link -->
+                        <button onclick="location.href='<%= contextPath + StringUtils.PAGE_URL_LOGIN %>'">Login</button> <!-- Change login button -->
                     </div>
                 </label>
             <%
@@ -69,8 +69,8 @@
             </div>
             <div class="search_wrapper">
                 <div class='search__container'>
-                    <form method="GET">
-                        <input id="search-field" class="input-field" type="search" name="keyword" placeholder="Enter keywords Here" autocomplete="off">
+                    <form method="GET" action = "<%=contextPath %>/SearchServlet">
+                        <input id="search-field" class="input-field" type="search" name="keyword" placeholder="Search for Watch" autocomplete="off">
                         <button class="btn-search" type="submit"><i class="fa fa-search"></i></button>
                     </form>
                 </div>
@@ -127,6 +127,7 @@
         </nav>
         <div class="cover__page">
             <section  class="h-text">
+          <!--    <img src="resources/images/products/gallery2.jpeg" alt="Your Image"> -->
                 <span>Time</span>
                 <h1>It's Moon o'clock</h1>
                 <br>

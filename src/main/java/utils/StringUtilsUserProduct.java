@@ -3,6 +3,7 @@ package utils;
 public class StringUtilsUserProduct {
 	public static final String SERVLET_PRODUCT = "/UserProductServlet";
 	public static final String SERVLET_CART = "/AddToCart";
+	public static final String SERVLET_ADD_TO_CART= "/AddToCartServlet";
 	
 	public static final String PRODUCT_LIST_PAGE = "/pages/UserProduct.jsp";
 	public static final String ORDER_LIST_PAGE = "/pages/order.jsp";

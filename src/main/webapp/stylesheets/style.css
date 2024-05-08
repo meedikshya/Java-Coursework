@@ -13,14 +13,14 @@
 
   }
 
-  .cover__page{
+  /* .cover__page{
     width: 100%;
     height: 100vh;
-    background-image: url(./images/ice-bg.svg);
+    background-image: url(../resources/images/products/logo.png);
     background-repeat: no-repeat;
     background-size: cover;
 
-  }
+  } */
 
   .container {
     width: 1320px;
@@ -851,7 +851,7 @@ background-image: linear-gradient(to right top, #7ea5cc, #97b6d6, #b0c8e1, #c9da
   .cover__page{
     width: 100%;
     height: 100vh;
-    background:linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.2)) , url(./images/Dark\ Brown\ Clean\ Minimalist\ Watch\ Presentation.png) no-repeat center center fixed;
+    background-image:linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.2)) , url(../resources/images/products/logo.png) no-repeat center center fixed;
     /* background: url(images/Dark\ Brown\ Clean\ Minimalist\ Watch\ Presentation.png) no-repeat center center fixed;  */
   -webkit-background-size: cover;
   -moz-background-size: cover;

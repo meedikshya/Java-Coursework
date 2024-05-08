@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import models.UserLoginModel;
 import services.UserServices;
 import utils.StringUtils;
+import utils.UserHelper;
 
 @WebServlet(urlPatterns = StringUtils.SERVLET_URL_LOGIN, asyncSupported = true)
 public class LoginUserServlet extends HttpServlet {
@@ -64,9 +65,11 @@ public class LoginUserServlet extends HttpServlet {
 	            if (userRole == 1) {
 	                // Redirect admin users to the admin dashboard
 	                response.sendRedirect(request.getContextPath() + StringUtils.SERVLET_URL_ADMIN);
+	                UserHelper.setGlobalUser(userName);
 	            } else {
 	                // Redirect regular users to the homepage
 	                response.sendRedirect(request.getContextPath() + StringUtils.PAGE_URL_WELCOME);
+	                UserHelper.setGlobalUser(userName);
 	            }
 	        } else if (loginResult == 0) {
 	            request.setAttribute(StringUtils.MESSAGE_ERROR, StringUtils.MESSAGE_ERROR_LOGIN);

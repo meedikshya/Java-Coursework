@@ -8,13 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import configs.DbConnectionConfig;
-import datasource.ProductDataSource;
 import datasource.UserProductDataSource;
-import models.ProductModel;
 import models.UserProductModel;
 
 public class UserProductServices {
-	static DbConnectionConfig dbObj = new DbConnectionConfig();
+static DbConnectionConfig dbObj = new DbConnectionConfig();
 	
 
     public static List<UserProductModel> getAllProducts() throws ClassNotFoundException {
@@ -32,6 +30,7 @@ public class UserProductServices {
 	            double price = result.getDouble("unit_price");
 	            int quantity = result.getInt("stockQuantity");
 	            String imageUrl = result.getString("product_image");
+	            int productId = result.getInt("product_id");
                 
                 //System.out.println("Retrieved product: " + name); 
                 
@@ -41,6 +40,7 @@ public class UserProductServices {
 	            prod.setPrice(price);
 	            prod.setQuantity(quantity);
 	            prod.setImageUrlFromDB(imageUrl);
+	            prod.setId(productId);
 	            
 	             
                 productList.add(prod);

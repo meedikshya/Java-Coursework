@@ -24,5 +24,4 @@ public class UserProductDataSource {
 	public static final String CART_PRODUCT = "SELECT product_name FROM cart WHERE userId = ?";
 	
 	
-
 }

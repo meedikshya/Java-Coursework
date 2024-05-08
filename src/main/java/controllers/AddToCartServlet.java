@@ -1,11 +1,30 @@
 package controllers;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import configs.DbConnectionConfig;
+import models.AddToCartModel;
+import models.UserProductModel;
+import services.AddToCartServices;
+import services.UserProductServices;
+import utils.StringUtils;
+import utils.StringUtilsCart;
+import utils.StringUtilsProduct;
+import utils.UserHelper;
 
 /**
  * Servlet implementation class AddToCartServlet
@@ -13,13 +32,13 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(asyncSupported = true, urlPatterns = { "/AddToCartServlet" })
 public class AddToCartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private final DbConnectionConfig db;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
     public AddToCartServlet() {
-        super();
-        // TODO Auto-generated constructor stub
+    	this.db = new DbConnectionConfig();// TODO Auto-generated constructor stub
     }
 
 	/**
@@ -27,7 +46,51 @@ public class AddToCartServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String username = UserHelper.getGlobalUser();
+		HttpSession us = request.getSession();
+		
+		//String username = request.getParameter("username");
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String userId = "";
+		
+		try {
+			conn = db.getDbConnection();
+			
+			stmt = conn.prepareStatement("SELECT user_id from user where user_name = ?");
+			stmt.setString(1, username);
+			rs = stmt.executeQuery();
+			
+			if(rs.next()) {
+				userId = rs.getString("user_id");
+				us.setAttribute("userId", userId);
+			}
+			List<UserProductModel> allProducts = AddToCartServices.getAllCartProducts(username);
+			
+//			for (UserProductModel product : allProducts) {
+//	            System.out.println("Product ID: " + product.getId());
+//	            System.out.println("Username: " + username);
+//	            // Add more fields if neede
+//	        }
+			
+			request.setAttribute("productList", allProducts);
+			
+			 if (!allProducts.isEmpty()) {
+	                //request.setAttribute("cartLists", allProducts);
+	                request.getRequestDispatcher(StringUtilsCart.CART_PAGE ).forward(request, response);
+	            } else {
+	                System.out.println("No products found.");
+	                // Handle case where no products are found, perhaps display an error message
+	            }
+			response.getWriter().append("Served at: "+allProducts).append(request.getContextPath());
+			
+		} catch (SQLException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//userlistpage ko connection
 	}
 
 	/**
@@ -35,7 +98,29 @@ public class AddToCartServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		HttpSession us = request.getSession();
+		String username = request.getParameter("username");
+		int productId = Integer.parseInt(request.getParameter("productId"));
+		String userId = (String) us.getAttribute("userId");
+		AddToCartModel cart = new AddToCartModel();
+		cart.setUsername(username);
+		cart.setProductId(productId);
+		
+		//Use select query in cart for username with productid 
+		//if()
+		
+		int result;
+		try {
+			result = AddToCartServices.addProduct(cart);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//System.out.println(result);
 		doGet(request, response);
+		
+		
+		
 	}
 
 	/**
