@@ -95,21 +95,50 @@ public class ProductServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Extracting parameters from the request
         String name = request.getParameter("productName");
         String category = request.getParameter("category");
         Part imagePart = request.getPart("productImage");
         String priceParam = request.getParameter("unitPrice");
-        double price = parseDoubleOrDefault(priceParam, 0.0);
         String quantityParam = request.getParameter("stockQuantity");
-        int quantity = parseIntOrDefault(quantityParam, 0);
+        
+        // Convert price and quantity to appropriate data types
+        double price;
+        int quantity;
+
+        // Server-side validation
+        if (name == null || name.isEmpty() ||
+            category == null || category.isEmpty() ||
+            priceParam == null || priceParam.isEmpty() ||
+            quantityParam == null || quantityParam.isEmpty()) {
+        	
+            // Validation failed, redirect back to the form page with error message
+            request.setAttribute("msg", "Fields can't be empty!");
+            request.getRequestDispatcher(StringUtilsProduct.ADD_PRODUCT_PAGE).forward(request, response);
+            return;
+        }
+
+        try {
+            // Parse price and quantity, and perform additional validation
+            price = Double.parseDouble(priceParam);
+            quantity = Integer.parseInt(quantityParam);
+
+            // Additional validation for negative values and zero
+            if (price <= 0 || quantity <= 0) {
+            	
+                // Validation failed, redirect back to the form page with error message
+                request.setAttribute("msg", "Please enter positive values only!");
+                request.getRequestDispatcher(StringUtilsProduct.ADD_PRODUCT_PAGE).forward(request, response);
+                return;
+            }
+        } catch (NumberFormatException e) {
+            // Handle parsing errors
+            request.setAttribute("msg", "Something went wrong!");
+            request.getRequestDispatcher(StringUtilsProduct.ADD_PRODUCT_PAGE).forward(request, response);
+            return;
+        }
 
         ProductModel product = new ProductModel(name, category, price, quantity, imagePart);
-
-//        String savePath = StringUtils.IMAGE_DIR_SAVE_PATH;
-//	    String fileName = ProductModel.getImageUrlFromPart();
-//	    if(!fileName.isEmpty() && fileName != null)
-//    		imagePart.write(savePath + fileName);
-//        
         
         int result = 0; 
         
@@ -118,7 +147,6 @@ public class ProductServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         if (result > 0) {
         	
         	// Get the image file name from the student object (assuming it was extracted earlier)
@@ -131,7 +159,8 @@ public class ProductServlet extends HttpServlet {
         	imagePart.write(savePath + fileName);  // Save the uploaded image to the specified path
         	}
         	
-            request.setAttribute(StringUtilsProduct.MESSAGE_SUCCESS, StringUtilsProduct.ADD_PRODUCT_SUCCESS_MESSAGE);
+        	 request.setAttribute("msg", "Successfully Added Product!");
+//            request.setAttribute(StringUtils.MESSAGE_SUCCESS, StringUtils.ADD_PRODUCT_SUCCESS_MESSAGE);
             response.sendRedirect(request.getContextPath() + StringUtilsProduct.SERVLET_URL_ADD_PRODUCT);
 
             List<ProductModel> addedProducts = new ArrayList<>();
@@ -139,7 +168,8 @@ public class ProductServlet extends HttpServlet {
             request.setAttribute("addedProducts", addedProducts);
             System.out.println("Added Products ArrayList: " + addedProducts);
         } else {
-            request.setAttribute(StringUtilsProduct.MESSAGE_ERROR, StringUtilsProduct.ADD_PRODUCT_ERROR_MESSAGE);
+        	 request.setAttribute("msg", "Something went wrong!");
+//            request.setAttribute(StringUtils.MESSAGE_ERROR, StringUtils.ADD_PRODUCT_ERROR_MESSAGE);
             request.getRequestDispatcher(StringUtilsProduct.ADD_PRODUCT_PAGE).forward(request, response);
         }
     }
@@ -165,21 +195,4 @@ public class ProductServlet extends HttpServlet {
         }
         return defaultValue;
     }
-
-//    private String saveImage(Part imagePart) throws IOException {
-//        String savePath = StringUtils.IMAGE_DIR_SAVE_PATH; 
-//        String fileName = StringUtils.generateUniqueFileName(); // Generates a unique file name
-//        String filePath = savePath + File.separator + fileName;
-//
-//        try (InputStream inputStream = imagePart.getInputStream();
-//             FileOutputStream outputStream = new FileOutputStream(filePath)) {
-//            byte[] buffer = new byte[4096];
-//            int bytesRead;
-//            while ((bytesRead = inputStream.read(buffer)) != -1) {
-//                outputStream.write(buffer, 0, bytesRead);
-//            }
-//        }
-//
-//        return fileName; 
-//    }
 }

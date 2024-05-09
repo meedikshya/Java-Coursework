@@ -8,6 +8,12 @@ body {
             text-align: center;
             margin-top: 20px;
         }
+        
+        .add {
+          margin-right: -250px;
+        }
+
+       
         table {
             width: 100%;
             border-collapse: collapse;

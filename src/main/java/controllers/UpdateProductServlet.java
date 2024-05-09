@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import configs.DbConnectionConfig;
 import models.ProductModel;
 import services.ProductServices;
+import utils.StringUtilsProduct;
 
 /**
  * Servlet implementation class UpdateProductServlet
@@ -55,7 +56,7 @@ public class UpdateProductServlet extends HttpServlet {
         System.out.println(name);
         System.out.println(priceStr);
         
-        
+    
         // Convert priceStr to double
         double price = 0.0; // Default value in case priceStr is null or empty
         if (priceStr != null && !priceStr.isEmpty()) {
@@ -76,6 +77,61 @@ public class UpdateProductServlet extends HttpServlet {
                 // Handle the case where quantityStr is not a valid integer
                 e.printStackTrace(); // Or log the error
             }
+        }
+        
+     // Server-side validation
+        if (name == null || name.isEmpty()) {
+            // Name is required
+            request.setAttribute("msg", "Product name is required!");
+            request.getRequestDispatcher(StringUtilsProduct.SERVLET_URL_MODIFY_USER).forward(request, response);
+            return;
+        }
+
+        if (category == null || category.isEmpty()) {
+            // Category is required
+            request.setAttribute("msg", "Product category is required!");
+            request.getRequestDispatcher(StringUtilsProduct.SERVLET_URL_MODIFY_USER).forward(request, response);
+            return;
+        }
+
+        if (priceStr == null || priceStr.isEmpty()) {
+            // Price is required
+            request.setAttribute("msg", "Product price is required!");
+            request.getRequestDispatcher(StringUtilsProduct.SERVLET_URL_MODIFY_USER).forward(request, response);
+            return;
+        }
+
+        if (quantityStr == null || quantityStr.isEmpty()) {
+            // Quantity is required
+            request.setAttribute("msg", "Product quantity is required!");
+            request.getRequestDispatcher(StringUtilsProduct.SERVLET_URL_MODIFY_USER).forward(request, response);
+            return;
+        }
+
+        try {
+            // Parse price and quantity, and perform additional validation
+            price = Double.parseDouble(priceStr);
+            quantity = Integer.parseInt(quantityStr);
+
+            // Additional validation for negative values and zero
+            if (price <= 0) {
+                // Price must be a positive value
+                request.setAttribute("msg", "Product price must be a positive value!");
+                request.getRequestDispatcher(StringUtilsProduct.SERVLET_URL_MODIFY_USER).forward(request, response);
+                return;
+            }
+
+            if (quantity <= 0) {
+                // Quantity must be a positive value
+                request.setAttribute("msg", "Product quantity must be a positive value!");
+                request.getRequestDispatcher(StringUtilsProduct.SERVLET_URL_MODIFY_USER).forward(request, response);
+                return;
+        }
+        } catch (NumberFormatException e) {
+            // Handle parsing errors
+            request.setAttribute("msg", "Invalid price or quantity format!");
+            request.getRequestDispatcher(StringUtilsProduct.SERVLET_URL_MODIFY_USER).forward(request, response);
+            return;
         }
         
         // Create ProductModel instance and set its properties

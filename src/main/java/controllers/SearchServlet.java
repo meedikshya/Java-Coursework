@@ -19,8 +19,10 @@ public class SearchServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String productName = request.getParameter("searchName");
+        String searchquery = request.getParameter("keyword");
+    	String productName = request.getParameter("searchName");
         String maxPriceStr = request.getParameter("maxPrice");
+        String productNameFound = "";
         double maxPrice = -1; // Default value if maxPrice is not provided
         if (maxPriceStr != null && !maxPriceStr.isEmpty()) {
             try {
@@ -37,20 +39,19 @@ public class SearchServlet extends HttpServlet {
         try {
             DbConnectionConfig dbObj = new DbConnectionConfig();
             conn = dbObj.getDbConnection();
-            String query = "SELECT product_name FROM product WHERE product_name LIKE ? AND unit_price <= ?";
+            String query = "SELECT product_name FROM product WHERE product_name LIKE ?";
             stmt = conn.prepareStatement(query);
-            stmt.setString(1, "%" + productName + "%");
-            stmt.setDouble(2, maxPrice);
+            stmt.setString(1, "%" + searchquery + "%");
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-                String productNameFound = rs.getString("product_name");
+                productNameFound = rs.getString("product_name");
                 // Set the found product name as an attribute in the request object
-                request.setAttribute("productName", productNameFound);
             } else {
                 // If no product is found, set an appropriate message
                 request.setAttribute("productName", "No product found");
             }
+            request.setAttribute("productName", productNameFound);
 
             // Forward the request to the JSP
             request.getRequestDispatcher("./pages/search.jsp").forward(request, response);
