@@ -48,49 +48,27 @@ public class AddToCartServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String username = UserHelper.getGlobalUser();
 		HttpSession us = request.getSession();
-		
-		//String username = request.getParameter("username");
-		Connection conn = null;
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
-		String userId = "";
-		
-		try {
-			conn = db.getDbConnection();
-			
-			stmt = conn.prepareStatement("SELECT user_id from user where user_name = ?");
-			stmt.setString(1, username);
-			rs = stmt.executeQuery();
-			
-			if(rs.next()) {
-				userId = rs.getString("user_id");
-				us.setAttribute("userId", userId);
+	
+			List<UserProductModel> allProducts;
+			try {
+				allProducts = AddToCartServices.getAllCartProducts(username);
+				
+				request.setAttribute("productList", allProducts);
+				
+				 if (!allProducts.isEmpty()) {
+		                //request.setAttribute("cartLists", allProducts);
+		                request.getRequestDispatcher(StringUtilsCart.CART_PAGE ).forward(request, response);
+		            } else {
+		                System.out.println("No products found.");
+		                // Handle case where no products are found, perhaps display an error message
+		            }
+				response.getWriter().append("Served at: "+allProducts).append(request.getContextPath());
+				
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			List<UserProductModel> allProducts = AddToCartServices.getAllCartProducts(username);
 			
-//			for (UserProductModel product : allProducts) {
-//	            System.out.println("Product ID: " + product.getId());
-//	            System.out.println("Username: " + username);
-//	            // Add more fields if neede
-//	        }
-			
-			request.setAttribute("productList", allProducts);
-			
-			 if (!allProducts.isEmpty()) {
-	                //request.setAttribute("cartLists", allProducts);
-	                request.getRequestDispatcher(StringUtilsCart.CART_PAGE ).forward(request, response);
-	            } else {
-	                System.out.println("No products found.");
-	                // Handle case where no products are found, perhaps display an error message
-	            }
-			response.getWriter().append("Served at: "+allProducts).append(request.getContextPath());
-			
-		} catch (SQLException | ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		//userlistpage ko connection
 	}
 
 	/**
@@ -98,29 +76,40 @@ public class AddToCartServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 		HttpSession us = request.getSession();
 		String username = request.getParameter("username");
-		int productId = Integer.parseInt(request.getParameter("productId"));
-		String userId = (String) us.getAttribute("userId");
-		AddToCartModel cart = new AddToCartModel();
-		cart.setUsername(username);
-		cart.setProductId(productId);
 		
-		//Use select query in cart for username with productid 
-		//if()
 		
-		int result;
-		try {
-			result = AddToCartServices.addProduct(cart);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		//For delete
+		String deleteId = request.getParameter(StringUtilsProduct.DELETE_ID);
+		System.out.println("post triggered" + deleteId);
+		if (deleteId != null && !deleteId.isEmpty()) {
+			doDelete(request, response);
+		}
+		
+		else {
+			int productId = Integer.parseInt(request.getParameter("productId"));
+			String userId = (String) us.getAttribute("userId");
+			AddToCartModel cart = new AddToCartModel();
+			cart.setUsername(username);
+			cart.setProductId(productId);
+			
+			//Use select query in cart for username with productid 
+			//if()
+			
+			int result;
+			try {
+				result = AddToCartServices.addProduct(cart);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			doGet(request, response);
 		}
 		//System.out.println(result);
-		doGet(request, response);
-		
-		
-		
+
+	
 	}
 
 	/**
@@ -134,7 +123,23 @@ public class AddToCartServlet extends HttpServlet {
 	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
 	 */
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	     HttpSession session = request.getSession();
+	     String username = UserHelper.getGlobalUser();
+	     int productId = Integer.parseInt(request.getParameter(StringUtilsCart.DELETE_ID));
+	     
+	     System.out.println("delete triggered");
+	     try {
+	         if (AddToCartServices.deleteProduct(username, productId) == 1) {
+	             request.setAttribute(StringUtilsCart.MESSAGE_SUCCESS, StringUtilsCart.MESSAGE_SUCCESS_DELETE);
+	             response.sendRedirect(request.getContextPath() + StringUtilsCart.SERVLET_URL_ADD_TO_CART);
+	         } else {
+	             request.setAttribute(StringUtilsCart.MESSAGE_ERROR, StringUtilsCart.MESSAGE_ERROR);
+	             response.sendRedirect(request.getContextPath() + StringUtilsCart.SERVLET_URL_ADD_TO_CART);
+	         }
+	     } catch (ClassNotFoundException e) {
+	         e.printStackTrace();
+	     }
 	}
+
 
 }

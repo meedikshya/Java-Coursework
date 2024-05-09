@@ -1,32 +1,72 @@
 package models;
 
 public class OrderDetailModel {
-    private String orderID;
-    private String productID;
-
-
+    private int orderdetails_id;
+    private int orderId;
+    private int productId;
+    private int quantity;
+    private double price;
+    
     public OrderDetailModel() {}
+    
+    
+    public int getOrderdetails_id() {
+		return orderdetails_id;
+	}
 
-    public OrderDetailModel(String orderID, String productID) {
-        this.orderID = orderID;
-        this.productID = productID;
-    }
 
-    public String getOrderID() {
-        return orderID;
-    }
 
-    public void setOrderID(String orderID) {
-        this.orderID = orderID;
-    }
+	public void setOrderdetails_id(int orderdetails_id) {
+		this.orderdetails_id = orderdetails_id;
+	}
 
-    public String getProductID() {
-        return productID;
-    }
 
-    public void setProductID(String productID) {
-        this.productID = productID;
-    }
+
+	public int getOrderId() {
+		return orderId;
+	}
+
+
+
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
+	}
+
+
+
+	public int getProductId() {
+		return productId;
+	}
+
+
+
+	public void setProductId(int productId) {
+		this.productId = productId;
+	}
+
+
+
+	public double getPrice() {
+		return price;
+	}
+
+
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
 
 
 }

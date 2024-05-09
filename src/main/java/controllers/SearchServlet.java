@@ -2,7 +2,6 @@ package controllers;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,58 +11,60 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import configs.DbConnectionConfig;
-import utils.StringUtils;
 
-/**
- * Servlet implementation class AdminServlet
- */
 @WebServlet("/SearchServlet")
 public class SearchServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession userSession = request.getSession();
-        String currentUser = (String) userSession.getAttribute(StringUtils.USERNAME);
-        String contextPath = request.getContextPath();
-        String userproduct = request.getParameter("keyword");
-        String userRole = "";
+        String productName = request.getParameter("searchName");
+        String maxPriceStr = request.getParameter("maxPrice");
+        double maxPrice = -1; // Default value if maxPrice is not provided
+        if (maxPriceStr != null && !maxPriceStr.isEmpty()) {
+            try {
+                maxPrice = Double.parseDouble(maxPriceStr);
+            } catch (NumberFormatException e) {
+                // Handle parsing error if necessary
+            }
+        }
 
         Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
-        PreparedStatement roleStmt = null;
-        ResultSet roleRs = null;
         try {
-        	DbConnectionConfig dbObj = new DbConnectionConfig();
+            DbConnectionConfig dbObj = new DbConnectionConfig();
             conn = dbObj.getDbConnection();
-            String roleQuery = "SELECT product_name from product where product_name LIKE ?";
-            roleStmt = conn.prepareStatement(roleQuery);
-            roleStmt.setString(1,"%" +  userproduct + "%");
-            roleRs = roleStmt.executeQuery();
+            String query = "SELECT product_name FROM product WHERE product_name LIKE ? AND unit_price <= ?";
+            stmt = conn.prepareStatement(query);
+            stmt.setString(1, "%" + productName + "%");
+            stmt.setDouble(2, maxPrice);
+            rs = stmt.executeQuery();
 
-            if (roleRs.next()) {
-            	userRole = roleRs.getString("product_name");
-                System.out.println(userRole);
+            if (rs.next()) {
+                String productNameFound = rs.getString("product_name");
+                // Set the found product name as an attribute in the request object
+                request.setAttribute("productName", productNameFound);
+            } else {
+                // If no product is found, set an appropriate message
+                request.setAttribute("productName", "No product found");
             }
-
-            // Set userRole as an attribute in the request object
-            request.setAttribute("userRole", userRole);
 
             // Forward the request to the JSP
             request.getRequestDispatcher("./pages/search.jsp").forward(request, response);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
+            // Handle SQLException
         } finally {
             try {
-                if (roleRs != null) roleRs.close();
-                if (roleStmt != null) roleStmt.close();
-                if (conn != null) conn.close(); // Close connection
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
     }
-
 }

@@ -85,4 +85,19 @@ public class AddToCartServices {
             return null;
         }
     }
+    
+    
+    public static int deleteProduct(String username, int productId) throws ClassNotFoundException {
+        try (Connection conn = dbObj.getDbConnection();
+             PreparedStatement st = conn.prepareStatement(AddToCartDataSource.DELETE_CART_PRODUCTS)) {
+            st.setString(1, username);
+            st.setInt(2, productId);
+            int result = st.executeUpdate();
+            return result > 0 ? 1 : 0;
+        } catch (SQLException ex) {
+            System.err.println("Error deleting product: " + ex.getMessage());
+            return -1;
+        }
+    }
+
 }

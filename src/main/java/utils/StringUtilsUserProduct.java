@@ -2,6 +2,7 @@ package utils;
 
 public class StringUtilsUserProduct {
 	public static final String SERVLET_PRODUCT = "/UserProductServlet";
+	public static final String SERVLET_URL_ADD_TO_CART = "/AddToCartServlet";
 	public static final String SERVLET_CART = "/AddToCart";
 	public static final String SERVLET_ADD_TO_CART= "/AddToCartServlet";
 	

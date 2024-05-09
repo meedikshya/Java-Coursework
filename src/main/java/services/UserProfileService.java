@@ -14,36 +14,33 @@ import models.UserModel;
 
 public class UserProfileService {
 	 //making the object to create connection with the database
-		DbConnectionConfig dbObj = new DbConnectionConfig();
+		private final static DbConnectionConfig dbObj = new DbConnectionConfig();
 		 
-		 public int updateUserInfo(UserModel user, String updateId) {
-	    	 try (Connection conn = dbObj.getDbConnection()) {
-				PreparedStatement st = conn.prepareStatement(UserRegistrationDataSource.UPDATE_USER);
-				st.setInt(1, user.getUserId());
-				st.setString(2, user.getUserName());
-				st.setString(3, user.getFullName());
-				st.setString(4, user.getGender());
-				st.setDate(5, Date.valueOf(user.getBirthday()));
-		        st.setString(6, user.getPhoneNumber());
-		        st.setString(7, user.getEmail());
-		        st.setString(8, user.getAddress());
-		        st.setString(9, PasswordEncryptionWithAes.encrypt(user.getUserName(), user.getPassword())); // Encrypt the password
-		        st.setString(10, user.getImageUrlFromPart());
-		        st.setString(11, updateId);
-				
-				System.out.println("getUser_id= "+user.getUserId());
-				
-				
-				int result = st.executeUpdate();
-				
-				System.out.println("Result= "+result);
-				return result > 0 ? 1: 0;
-			} catch (SQLException ex) {
-				ex.printStackTrace(); // Log the exception for debugging
-				return -1;
-			}
-	    	 
-		}  public  UserModel getUserById(int userId) {
+		/*
+		 * public int updateUserInfo(UserModel user, String updateId) { try (Connection
+		 * conn = dbObj.getDbConnection()) { PreparedStatement st =
+		 * conn.prepareStatement(UserRegistrationDataSource.UPDATE_USER); st.setInt(1,
+		 * user.getUserId()); st.setString(2, user.getUserName()); st.setString(3,
+		 * user.getFullName()); st.setString(4, user.getGender()); st.setDate(5,
+		 * Date.valueOf(user.getBirthday())); st.setString(6, user.getPhoneNumber());
+		 * st.setString(7, user.getEmail()); st.setString(8, user.getAddress());
+		 * st.setString(9, PasswordEncryptionWithAes.encrypt(user.getUserName(),
+		 * user.getPassword())); // Encrypt the password st.setString(10,
+		 * user.getImageUrlFromPart()); st.setString(11, updateId);
+		 * 
+		 * System.out.println("getUser_id= "+user.getUserId());
+		 * 
+		 * 
+		 * int result = st.executeUpdate();
+		 * 
+		 * System.out.println("Result= "+result); return result > 0 ? 1: 0; } catch
+		 * (SQLException ex) { ex.printStackTrace(); // Log the exception for debugging
+		 * return -1; }
+		 * 
+		 * }
+		 */ 
+		
+			public static UserModel getUserById(int userId) {
 	        try (Connection con = dbObj.getDbConnection()) {
 	            PreparedStatement stmt = con.prepareStatement(UserRegistrationDataSource.QUERY_USER);
 	            stmt.setInt(1, userId);
@@ -96,5 +93,12 @@ public class UserProfileService {
 					ex.printStackTrace(); // Log the exception for debugging
 					return -1;
 				}
-			} 
+			}
+
+
+
+		public int updateUserInfo(UserModel updatedUser, String updateId) {
+			// TODO Auto-generated method stub
+			return 0;
+		} 
 }

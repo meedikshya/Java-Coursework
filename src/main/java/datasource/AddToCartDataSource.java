@@ -7,5 +7,9 @@ public class AddToCartDataSource {
 	 
 	 public static final String SELECT_CART_PRODUCT ="SELECT * FROM product where product_id = ? ";
 	 
+	 public static final String  DELETE_CART_PRODUCTS= "DELETE FROM cart WHERE username = ? AND productId=?";
 	 
+	 public static final String  DELETE_CART= "DELETE FROM cart WHERE username = ?";
+		
+	   
 }
