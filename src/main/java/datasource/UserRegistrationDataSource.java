@@ -25,6 +25,8 @@ public class UserRegistrationDataSource {
 	
 	public static final String GET_USER = "SELECT count(user_name) as user from user where userRole = 'User'";
 	
+	
+	
 	public static final String GET_USERNAME = "SELECT COUNT(*) FROM user WHERE user_name = ?"; 
 	public static final String GET_PHONE = "SELECT COUNT(*) FROM user  WHERE phone_number = ?"; 
 	public static final String GET_EMAIL = "SELECT COUNT(*) FROM user  WHERE email = ?";  

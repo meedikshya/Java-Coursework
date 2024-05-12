@@ -3,7 +3,9 @@ package utils;
 public class StringUtilsCart {
 	public static final String SERVLET_URL_ADD_TO_CART  = "/AddToCartServlet";
 	public static final String CART_PAGE = "/pages/AddToCart.jsp";
-	public static final String ORDER_PAGE = "/pages/Order.jsp";
+	public static final String ORDER_PAGE = "/pages/order.jsp";
+	
+	public static final String ORDER_HISTORY_PAGE = "/pages/orderHistory.jsp";
 	
 	  public static final String MESSAGE_ERROR_SERVER = "An unexpected server error occurred.";
 			public static final String MESSAGE_SUCCESS_DELETE = "Successfully Deleted!";

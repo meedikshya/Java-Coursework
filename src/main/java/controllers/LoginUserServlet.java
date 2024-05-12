@@ -31,7 +31,8 @@ public class LoginUserServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.getRequestDispatcher(StringUtils.PAGE_URL_LOGIN).forward(request, response);
 	}
 
 	/**
@@ -55,13 +56,13 @@ public class LoginUserServlet extends HttpServlet {
 	            userSession.setAttribute(StringUtils.USER_ROLE, userRole);
 
 	            // Set session timeout
-	            userSession.setMaxInactiveInterval(1*60);
+	            userSession.setMaxInactiveInterval(30*60);
 
 	            // Create and add a cookie with the username
 	            Cookie userCookie= new Cookie(StringUtils.USER, userName);
 	            userCookie.setMaxAge(30*60);
 	            response.addCookie(userCookie);
-
+	            
 	            if (userRole == 1) {
 	                // Redirect admin users to the admin dashboard
 	                response.sendRedirect(request.getContextPath() + StringUtils.SERVLET_URL_ADMIN);

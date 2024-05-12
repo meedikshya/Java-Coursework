@@ -87,6 +87,7 @@ public class StringUtils {
 		public static final String SERVLET_URL_USER_DISPLAY = "/UserDisplayServlet";
 		public static final String SERVLET_URL_USER_PROFILE_DELETE = "/UserProfileDeleteServlet";
 		public static final String SERVLET_URL_USER_PROFILE_UPDATE = "/UserProfileUpdateServlet";
+		public static final String SERVLET_ORDER_HISTORY= "/OrderHistoryServlet";
 		// End: Servlet Route
 
 		// Start: Normal Text

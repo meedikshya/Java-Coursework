@@ -5,15 +5,24 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import configs.DbConnectionConfig;
 import datasource.AddToCartDataSource;
 import datasource.OrderDataSource;
+import datasource.ProductDataSource;
 import models.OrderModel;
+import models.ProductModel;
+import models.UserProductModel;
+import models.AddToCartModel;
 import models.OrderDetailModel;
+import models.OrderDetailsViewModel;
 
 public class OrderServices {
 
+	private final static DbConnectionConfig dbObj = new DbConnectionConfig();
+	
     public static int setOrder(OrderModel order) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -117,5 +126,84 @@ public class OrderServices {
 
         return result;
     }
+    
+    public static List<OrderModel> getAllOrders(String username) throws ClassNotFoundException {
+        List<OrderModel> orderList = new ArrayList<>();
+
+        try (Connection conn = dbObj.getDbConnection()) {
+            PreparedStatement st = conn.prepareStatement(OrderDataSource.USER_ORDER );
+            st.setString(1, username);
+            ResultSet result = st.executeQuery();
+
+            while (result.next()) {
+                int orderId = result.getInt("order_id");
+                double grandTotal = result.getDouble("grandTotal");
+                int totalItems = result.getInt("totalItems");;
+                String orderStatus = result.getString("orderStatus");
+
+                OrderModel order = new OrderModel();
+                order.setOrder_id(orderId);
+                order.setGrandTotal(grandTotal);
+                order.setTotalItems(totalItems);
+                order.setOrderStatus(orderStatus);
+                
+                orderList.add(order);
+            }        
+            return orderList;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+    
+    public static List<OrderDetailsViewModel> getAllOrdersItemJoin(int orderId) throws ClassNotFoundException {
+        List<OrderDetailsViewModel> orderItemList = new ArrayList<>();
+
+        try (Connection conn = dbObj.getDbConnection()) {
+            PreparedStatement st = conn.prepareStatement(OrderDataSource.USER_ORDERITEMS_JOIN);
+            st.setInt(1, orderId);
+            ResultSet result = st.executeQuery();
+
+            while (result.next()) {
+                //int orderDetailsId1 = result.getInt("orderdetails_id");
+                double price = result.getDouble("price");
+                int quantity = result.getInt("quantity");
+                int orderId1 = result.getInt("orderId");
+                int productId = result.getInt("productId");
+                String productName = result.getString("product_name");
+                String imageUrl = result.getString("product_image");
+                
+                OrderDetailsViewModel odvm = new OrderDetailsViewModel();
+                odvm.setName(productName);
+                odvm.setProductId(productId);
+                odvm.setPrice(price);
+                odvm.setQuantity(quantity);
+                odvm.setOrderId(orderId);
+                odvm.setImageUrl(imageUrl);
+                
+                orderItemList.add(odvm);
+            }        
+            return orderItemList;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+    
+	public static void reduceProductQuantity(int productId, int quantity) {
+		// TODO Auto-generated method stub
+		 try (Connection conn = dbObj.getDbConnection()) {
+	            PreparedStatement st = conn.prepareStatement(OrderDataSource.ORDER_UPDATE);
+	            st.setInt(1, quantity);
+	            st.setInt(2, productId);
+	            int result = st.executeUpdate();
+	            
+	        } catch (SQLException ex) {
+	            ex.printStackTrace();
+	            
+	        }
+		
+	}
+      
     
 }

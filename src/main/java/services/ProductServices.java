@@ -112,6 +112,43 @@ public class ProductServices {
 	        return null;
 	    }
 	}
+	
+	// Method to check if a product name is unique
+    public boolean isProductNameUnique(String productName) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            DbConnectionConfig dbObj = new DbConnectionConfig();
+            conn = dbObj.getDbConnection();
+            
+            // Query to check if the product name already exists in the database
+            String query = "SELECT COUNT(*) FROM product WHERE product_name = ?";
+            stmt = conn.prepareStatement(query);
+            stmt.setString(1, productName);
+            rs = stmt.executeQuery();
+            
+            // If count is greater than 0, it means the product name already exists
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count == 0; // Return true if count is 0 (product name is unique)
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        
+        // Default to true if an error occurs
+        return true;
+    }
 
 
     public static int deleteProduct(String name) throws ClassNotFoundException {

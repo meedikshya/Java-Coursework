@@ -11,26 +11,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import configs.DbConnectionConfig;
+import utils.UserHelper;
 
 @WebServlet("/SearchServlet")
 public class SearchServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        String username = UserHelper.getGlobalUser();
         String searchquery = request.getParameter("keyword");
-    	String productName = request.getParameter("searchName");
-        String maxPriceStr = request.getParameter("maxPrice");
-        String productNameFound = "";
-        double maxPrice = -1; // Default value if maxPrice is not provided
-        if (maxPriceStr != null && !maxPriceStr.isEmpty()) {
-            try {
-                maxPrice = Double.parseDouble(maxPriceStr);
-            } catch (NumberFormatException e) {
-                // Handle parsing error if necessary
-            }
-        }
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -39,19 +32,24 @@ public class SearchServlet extends HttpServlet {
         try {
             DbConnectionConfig dbObj = new DbConnectionConfig();
             conn = dbObj.getDbConnection();
-            String query = "SELECT product_name FROM product WHERE product_name LIKE ?";
+            String query = "SELECT * FROM product WHERE product_name LIKE ?";
             stmt = conn.prepareStatement(query);
             stmt.setString(1, "%" + searchquery + "%");
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-                productNameFound = rs.getString("product_name");
-                // Set the found product name as an attribute in the request object
+                // Retrieve product details from the ResultSet
+                String productName = rs.getString("product_name");
+                String productImagePath = rs.getString("product_image");
+
+                // Set product details as attributes in the request object
+                request.setAttribute("productName", productName);
+                request.setAttribute("productImagePath", productImagePath);
+                System.out.println(productImagePath);
             } else {
                 // If no product is found, set an appropriate message
                 request.setAttribute("productName", "No product found");
             }
-            request.setAttribute("productName", productNameFound);
 
             // Forward the request to the JSP
             request.getRequestDispatcher("./pages/search.jsp").forward(request, response);

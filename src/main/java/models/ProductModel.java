@@ -8,8 +8,9 @@ import utils.StringUtils;
 import utils.StringUtilsProduct;
 
 public class ProductModel {
-//	private int id;
-    private String name;
+	
+	private int productId;
+	private String name;
     private String category;
     private double price;
     private int quantity;
@@ -42,9 +43,9 @@ public class ProductModel {
     }
 
 	 //Getters
-//    public int getId() {
-//    	return id;
-//    }
+    public int getProductId() {
+     	return productId;
+    }
     
     public String getName() {
         return name;
@@ -67,9 +68,9 @@ public class ProductModel {
 	}
     
     // Setters
-//    public void setId(int id) {
-//    	this.id = id;
-//    }
+   public void setProductId(int productId) {
+    	this.productId = productId;
+    }
     
     public void setName(String name) {
         this.name = name;
@@ -86,6 +87,7 @@ public class ProductModel {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+    
     
     public void setImageUrlFromPart(Part part) {
 		this.imageUrlFromPart = getImageUrl(part);

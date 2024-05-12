@@ -44,12 +44,22 @@ public class AdminServlet extends HttpServlet {
         String userRole = "Admin";
         int totalUsers = 0; // Variable to store the total number of users
         int totalProducts = 0; // Variable to store the total number of products
-
+        int totalOrders = 0;
+        
+        double totalIncome = 0.0;
+        
         Connection conn = null;
         PreparedStatement roleStmt = null;
         ResultSet roleRs = null;
         PreparedStatement productStmt = null;
         ResultSet productRs = null;
+        
+        PreparedStatement orderStmt = null;
+        ResultSet orderRs = null;
+        
+        PreparedStatement incomeStmt = null;
+        ResultSet incomeRs = null;
+        
 
         try {
             DbConnectionConfig dbObj = new DbConnectionConfig();
@@ -75,10 +85,35 @@ public class AdminServlet extends HttpServlet {
             if (productRs.next()) {
                 totalProducts = productRs.getInt("total");
             }
+            
+         // Query to get the total number of products
+            String orderQuery = ProductDataSource.COUNT_ALL_ORDER;
+            orderStmt = conn.prepareStatement(orderQuery);
+            orderRs = orderStmt.executeQuery();
+
+            // Count the number of products
+            if (orderRs.next()) {
+                totalOrders = orderRs.getInt("totalOrders");
+            }
+            
+         // Query to get the total number of products
+            String incomeQuery = ProductDataSource.GET_INCOME;
+            incomeStmt = conn.prepareStatement(incomeQuery);
+            incomeRs = incomeStmt.executeQuery();
+
+            // Count the number of products
+            if (incomeRs.next()) {
+                totalIncome = incomeRs.getInt("totalIncome");
+            }
+            
 
             // Set userRole, totalUsers, and totalProducts as attributes in the request object
             request.setAttribute("userRole", userRole);
             request.setAttribute("total", totalProducts);
+            request.setAttribute("totalOrders", totalOrders);
+            request.setAttribute("totalIncome", totalIncome);
+            
+            
 
             // Forward the request to the JSP
             request.getRequestDispatcher(StringUtils.PAGE_URL_ADMIN_DASHBOARD).forward(request, response);
@@ -90,6 +125,11 @@ public class AdminServlet extends HttpServlet {
                 if (roleStmt != null) roleStmt.close();
                 if (productRs != null) productRs.close();
                 if (productStmt != null) productStmt.close();
+                if (orderRs != null) orderRs.close();
+                if (orderStmt != null) orderStmt.close();
+                if (incomeRs != null) incomeRs.close();
+                if (incomeStmt != null) incomeStmt.close();
+                
                 if (conn != null) conn.close(); // Close connection
             } catch (SQLException e) {
                 e.printStackTrace();

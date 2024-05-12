@@ -7,5 +7,7 @@ public class ProductDataSource {
     public static final String QUERY_DELETE_PRODUCTS= "DELETE FROM product WHERE product_name = ?";
     public static final String COUNT_ALL_PRODUCTS =    "SELECT COUNT(*) as total FROM product";
     public static final String UPDATE_PRODUCTS = "UPDATE product SET product_name=?, product_category=?, unit_price=?, stockQuantity=? WHERE product_name=?";
-
-}
+    
+    public static final String COUNT_ALL_ORDER =  "SELECT COUNT(*) AS totalOrders FROM orders";
+    public static final String GET_INCOME =  "SELECT SUM(grandTotal) AS totalIncome FROM orders";
+    }

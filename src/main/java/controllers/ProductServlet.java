@@ -93,8 +93,7 @@ public class ProductServlet extends HttpServlet {
         }
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Extracting parameters from the request
         String name = request.getParameter("productName");
         String category = request.getParameter("category");
@@ -111,7 +110,7 @@ public class ProductServlet extends HttpServlet {
             category == null || category.isEmpty() ||
             priceParam == null || priceParam.isEmpty() ||
             quantityParam == null || quantityParam.isEmpty()) {
-        	
+            
             // Validation failed, redirect back to the form page with error message
             request.setAttribute("msg", "Fields can't be empty!");
             request.getRequestDispatcher(StringUtilsProduct.ADD_PRODUCT_PAGE).forward(request, response);
@@ -125,7 +124,7 @@ public class ProductServlet extends HttpServlet {
 
             // Additional validation for negative values and zero
             if (price <= 0 || quantity <= 0) {
-            	
+                
                 // Validation failed, redirect back to the form page with error message
                 request.setAttribute("msg", "Please enter positive values only!");
                 request.getRequestDispatcher(StringUtilsProduct.ADD_PRODUCT_PAGE).forward(request, response);
@@ -137,6 +136,17 @@ public class ProductServlet extends HttpServlet {
             request.getRequestDispatcher(StringUtilsProduct.ADD_PRODUCT_PAGE).forward(request, response);
             return;
         }
+
+        // Check if the product name already exists in the database
+        boolean isProductNameUnique = productServices.isProductNameUnique(name);
+        if (!isProductNameUnique) {
+            // Product name already exists, redirect back to the form page with error message
+            request.setAttribute("msg", "Product name already exists!");
+            request.getRequestDispatcher(StringUtilsProduct.ADD_PRODUCT_PAGE).forward(request, response);
+            return;
+        }
+
+        
 
         ProductModel product = new ProductModel(name, category, price, quantity, imagePart);
         
